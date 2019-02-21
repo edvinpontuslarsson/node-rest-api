@@ -1,0 +1,34 @@
+{
+  "name": "exam2",
+  "version": "1.0.0",
+  "description": "API built with Node.js & Express",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1dv527/el223na-examination-2.git"
+  },
+  "keywords": [
+    "API",
+    "Node",
+    "REST",
+    "webhook"
+  ],
+  "author": "Edvin Larsson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1dv527/el223na-examination-2/issues"
+  },
+  "homepage": "https://github.com/1dv527/el223na-examination-2#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
