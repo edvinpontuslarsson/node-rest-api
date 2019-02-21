@@ -9,4 +9,13 @@ router.route('/api')
         })
     })
 
+    .post((req, res) => {
+        const postMessage = req.body.msg
+        
+        res.json({
+            preface: 'You posted this',
+            msg: postMessage
+        })
+    })
+
 module.exports = router
