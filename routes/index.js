@@ -2,7 +2,7 @@
 
 const router = require('express').Router()
 
-router.route('/api')
+router.route('/')
     .get((req, res) => {
         res.json({
             greeting: 'Hello from the API'
