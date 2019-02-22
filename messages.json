@@ -1,0 +1,22 @@
+[
+    {
+        "message_id": 1,
+        "user": "James Bond",
+        "title": "Bond",
+        "message": "James Bond",
+        "links": [
+            {
+                "rel": "self",
+                "href": "<host>/messages-1",
+                "action": "PUT",
+                "restricted": true
+            },
+            {
+                "rel": "self",
+                "href": "<host>/messages-1",
+                "action": "DELETE",
+                "restricted": true
+            }
+        ]
+    }
+]

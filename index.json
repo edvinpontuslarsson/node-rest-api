@@ -1,0 +1,29 @@
+{
+    "greeting": "Welcome to the MessageBoard API!",
+    "links": [
+        {
+            "rel": "messages",
+            "href": "<host>/messages",
+            "action": "GET",
+            "restricted": false
+        },
+        {
+            "rel": "signup",
+            "href": "<host>/signup",
+            "action": "POST",
+            "restricted": false
+        },
+        {
+            "rel": "login",
+            "href": "<host>/login",
+            "action": "POST",
+            "restricted": true
+        },
+        {
+            "rel": "messages",
+            "href": "<host>/messages",
+            "action": "POST",
+            "restricted": true
+        }
+    ]
+}
