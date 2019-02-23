@@ -3,7 +3,6 @@
 module.exports = hostname => {
     const obj = {
         greeting: 'Welcome to the MessageBoard API!',
-
         links: [
             {
                 rel: 'messages',
