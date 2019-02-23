@@ -1,3 +1,5 @@
+git push heroku master
+
 Idea: A CRUD message board in API form. Web hook when new message is posted. 
 
 * message_number
