@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = hostname => {
-    return {
+    const obj = {
         greeting: 'Welcome to the MessageBoard API!',
 
         links: [
@@ -27,4 +27,6 @@ module.exports = hostname => {
             }
         ]
     }
+
+    return JSON.stringify(obj)
 }

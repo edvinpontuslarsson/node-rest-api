@@ -6,7 +6,7 @@ const indexView = require('../views/index')
 router.route('/')
     .get((req, res) => {
         const view = indexView(req.headers.host)
-        res.json(view)
+        res.send(view)
     })
 
 module.exports = router
