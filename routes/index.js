@@ -1,21 +1,12 @@
 'use strict'
 
 const router = require('express').Router()
+const start = require('../models/Start')
 
 router.route('/')
     .get((req, res) => {
-        res.json({
-            greeting: 'Hello from the API'
-        })
-    })
-
-    .post((req, res) => {
-        const postMessage = req.body.msg
-        
-        res.json({
-            preface: 'You posted this',
-            msg: postMessage
-        })
+        const obj = start(req.headers.host)
+        res.json(obj)
     })
 
 module.exports = router

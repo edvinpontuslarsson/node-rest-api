@@ -6,16 +6,22 @@
         "message": "James Bond",
         "links": [
             {
-                "rel": "self",
-                "href": "<host>/messages-1",
-                "action": "PUT",
-                "restricted": true
+                "rel": "message",
+                "href": "<host>/message-1",
+                "action": "GET",
+                "access_rights": true
             },
             {
-                "rel": "self",
-                "href": "<host>/messages-1",
+                "rel": "message",
+                "href": "<host>/message-1",
+                "action": "PUT",
+                "access_rights": false
+            },
+            {
+                "rel": "message",
+                "href": "<host>/message-1",
                 "action": "DELETE",
-                "restricted": true
+                "access_rights": false
             }
         ]
     }
