@@ -11,4 +11,12 @@ router.route('/sign-up')
         res.send(view)
     })
 
+    .post(async (req, res) => {
+        try {
+            
+        } catch (err) {
+            
+        }
+    })
+
 module.exports = router

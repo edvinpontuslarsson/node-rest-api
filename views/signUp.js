@@ -33,9 +33,10 @@ const getSignUpSuccesRes = hostname => {
 
 /**
  * @param {String} hostname 
+ * @param {Error} err
  * @returns JSON with links & instructions
  */
-const getSignUpfailRes = hostname => {
+const getSignUpfailRes = (hostname, err) => {
 
 }
 
