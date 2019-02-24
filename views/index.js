@@ -7,71 +7,64 @@ const getIndexView = hostname => {
     }
 
     obj.links.push(
-        getMessagesGetObj(hostname),
-        getSignUpPostObj(hostname),
-        getSignInPostObj(hostname),
-        getMessagesPostObj(hostname)
+        getMessagesObj(hostname),
+        getSignUpObj(hostname),
+        getSignInObj(hostname),
     )
 
     return JSON.stringify(obj)
 }
 
-const getMessagesGetObj = hostname => {
-    // redo
-
-    // have only one for messages with different actions,
-    // see: https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/
-
+const getMessagesObj = hostname => {
     return {
         rel: messages,
         href: `${hostname}/${messages}`,
-        action: get
-    }
-}
-
-const getSignUpPostObj = hostname => {
-    return {
-        rel: signUp,
-        href: `${hostname}/${signUp}`,
         actions: [
+            { method: get },
             {
-                class: signUp,
-                href: `${hostname}/${signUp}`,
                 method: post,
                 fields: [
-                    {
-                        name: username,
-                        type: string
-                    },
-                    {
-                        name: password,
-                        type: string
-                    },
-                    {
-                        name: repeatPassword,
-                        type: string
-                    }
+                    { name: 'jwt_token', type: string },
+                    { name: 'title', type: string },
+                    { name: 'message', type: string }
                 ]
             }
         ]
     }
 }
 
-const getSignInPostObj = hostname => {
-    // redo
+const getSignUpObj = hostname => {
     return {
-        rel: signIn,
-        href: `${hostname}/${signIn}`,
-        action: post
+        rel: signUp,
+        href: `${hostname}/${signUp}`,
+        actions: [
+            { method: get },
+            {
+                method: post,
+                fields: [
+                    { name: username, type: string },
+                    { name: password, type: string },
+                    { name: repeatPassword, type: string }
+                ]
+            }
+        ]
     }
 }
 
-const getMessagesPostObj = hostname => {
-    // redo
+const getSignInObj = hostname => {
     return {
-        rel: messages,
-        href: `${hostname}/${messages}`,
-        action: post
+        rel: signIn,
+        href: `${hostname}/${signIn}`,
+        actions: [
+            { method: get },
+            {
+                method: post,
+                fields: [
+                    { name: username, type: string },
+                    { name: password, type: string }
+                ]   
+            }
+        ]
     }
 }
 
