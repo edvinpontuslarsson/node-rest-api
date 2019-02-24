@@ -10,6 +10,7 @@ app.use(bodyParser.json())
 
 // sets routes
 app.use('/', require('./routes/index'))
+app.use('/', require('./routes/signUp'))
 
 const port = process.env.PORT
 
