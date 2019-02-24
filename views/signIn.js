@@ -1,21 +1,26 @@
 'use strict'
 
-const getSignInView = hostname => {
-    return {
-        rel: signIn,
-        href: `${hostname}/${signIn}`,
-        actions: [
-            { method: get },
-            {
-                method: post,
-                fields: [
-                    { name: username, type: string },
-                    { name: password, type: string }
-                ]   
-            }
-        ]
-    }
-}
+/**
+ * @param {String} hostname 
+ * @returns JSON with links & instructions
+ */
+const getSignInView = hostname => 
+    JSON.stringify(
+        {
+            rel: signIn,
+            href: `${hostname}/${signIn}`,
+            actions: [
+                { method: get },
+                {
+                    method: post,
+                    fields: [
+                        { name: username, type: string },
+                        { name: password, type: string }
+                    ]   
+                }
+            ]
+        }
+    )
 
 const get = 'GET'
 const post = 'POST'
