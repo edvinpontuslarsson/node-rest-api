@@ -3,7 +3,9 @@
 require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
+const dbconfig = require('./config/dbConfig')
 
+dbconfig.connect()
 const app = express()
 
 app.use(bodyParser.json())
