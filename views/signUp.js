@@ -1,30 +1,30 @@
 'use strict'
 
 /**
- * @param {String} hostname 
+ * @param {String} hostname
  * @returns JSON with links & instructions
  */
-const getSignUpView = hostname => 
-    JSON.stringify(
+const getSignUpView = hostname =>
+  JSON.stringify(
+    {
+      rel: signUp,
+      href: `${hostname}/${signUp}`,
+      actions: [
+        { method: get },
         {
-            rel: signUp,
-            href: `${hostname}/${signUp}`,
-            actions: [
-                { method: get },
-                {
-                    method: post,
-                    fields: [
-                        { name: username, type: string },
-                        { name: password, type: string },
-                        { name: repeatPassword, type: string }
-                    ]
-                }
-            ]
+          method: post,
+          fields: [
+            { name: username, type: string },
+            { name: password, type: string },
+            { name: repeat_password, type: string }
+          ]
         }
-    )
+      ]
+    }
+  )
 
 /**
- * @param {String} hostname 
+ * @param {String} hostname
  * @returns JSON with links & instructions
  */
 const getSignUpSuccesRes = hostname => {
@@ -32,7 +32,7 @@ const getSignUpSuccesRes = hostname => {
 }
 
 /**
- * @param {String} hostname 
+ * @param {String} hostname
  * @param {Error} err
  * @returns JSON with links & instructions
  */
@@ -48,10 +48,10 @@ const signUp = 'sign-up'
 
 const username = 'username'
 const password = 'password'
-const repeatPassword = 'repeat-password'
+const repeat_password = 'repeat_password'
 
 module.exports = {
-    getSignUpView,
-    getSignUpSuccesRes,
-    getSignUpfailRes
+  getSignUpView,
+  getSignUpSuccesRes,
+  getSignUpfailRes
 }

@@ -17,5 +17,5 @@ app.use('/', require('./routes/signUp'))
 const port = process.env.PORT
 
 app.listen(port, () => {
-    console.log(`The API is now running on port ${port}`)
+  console.log(`The API is now running on port ${port}`)
 })

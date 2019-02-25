@@ -1,26 +1,26 @@
 'use strict'
 
 /**
- * @param {String} hostname 
+ * @param {String} hostname
  * @returns JSON with links & instructions
  */
-const getSignInView = hostname => 
-    JSON.stringify(
+const getSignInView = hostname =>
+  JSON.stringify(
+    {
+      rel: signIn,
+      href: `${hostname}/${signIn}`,
+      actions: [
+        { method: get },
         {
-            rel: signIn,
-            href: `${hostname}/${signIn}`,
-            actions: [
-                { method: get },
-                {
-                    method: post,
-                    fields: [
-                        { name: username, type: string },
-                        { name: password, type: string }
-                    ]   
-                }
-            ]
+          method: post,
+          fields: [
+            { name: username, type: string },
+            { name: password, type: string }
+          ]
         }
-    )
+      ]
+    }
+  )
 
 const get = 'GET'
 const post = 'POST'
