@@ -9,6 +9,7 @@ dbconfig.connect()
 const app = express()
 
 app.use(bodyParser.json())
+app.set('jwt_secret', process.env.JWT_SECRET)
 
 // sets routes
 app.use('/', require('./routes/index'))

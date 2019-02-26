@@ -4,6 +4,13 @@ Why not xml? JSON is easier to work with. Very common.
 
 Idea: A CRUD message board in API form. Web hook when new message is posted. 
 
+add user
+sign in
+add message
+edit message
+delete message
+delete user
+
 * message_number
 * user
 * title

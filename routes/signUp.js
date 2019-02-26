@@ -6,9 +6,10 @@ const userDAL = require('../models/userDAL')
 
 router.route('/sign-up')
   .get((req, res) => {
-    res.status(200)
     const view =
       signUpView.getSignUpView(req.headers.host)
+
+    res.status(200)
     res.send(view)
   })
 
@@ -24,6 +25,8 @@ router.route('/sign-up')
         signUpView.getSignUpSuccesRes(
           req.headers.host, regUsername
         )
+
+      res.status(201)
       res.send(view)
     } catch (err) {
       console.log(err)
