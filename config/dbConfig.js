@@ -23,7 +23,11 @@ const connect = () => {
     })
   })
 
-  mongoose.connect(process.env.dbURL, { useNewUrlParser: true })
+  mongoose.set('useNewUrlParser', true)
+  mongoose.set('useFindAndModify', false)
+  mongoose.set('useCreateIndex', true)
+
+  mongoose.connect(process.env.dbURL)
 }
 
 module.exports = { connect }

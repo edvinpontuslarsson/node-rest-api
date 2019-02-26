@@ -1,5 +1,7 @@
 'use strict'
 
+const signInView = require('./signIn')
+
 /**
  * @param {String} hostname
  * @returns JSON with links & instructions
@@ -27,9 +29,15 @@ const getSignUpView = hostname =>
  * @param {String} hostname
  * @returns JSON with links & instructions
  */
-const getSignUpSuccesRes = hostname => {
-
-}
+const getSignUpSuccesRes = (hostname, regUsername) =>
+    JSON.stringify(
+      {
+        info: `You are now a registered user, welcome aboard ${regUsername}!`,
+        links: [
+          JSON.parse(signInView.getSignInView(hostname))
+        ]
+      }
+    )
 
 /**
  * @param {String} hostname

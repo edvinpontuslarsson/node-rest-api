@@ -11,7 +11,7 @@ const signInView = require('./signIn')
 const getIndexView = hostname =>
   JSON.stringify(
     {
-      greeting: 'Welcome to the MessageBoard API!',
+      info: 'Welcome to the MessageBoard API!',
       links: [
         // objects with links & instructions
         JSON.parse(messagesView.getMessagesView(hostname)),

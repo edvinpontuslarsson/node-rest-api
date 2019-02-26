@@ -10,7 +10,7 @@ const sanitize = require('mongo-sanitize')
  * @param {String} rawPassword
  * @param {String} rawRepeatPass
  * @throws {}
- * @returns {Promise} - empty resolve promise
+ * @returns {Promise} username
  */
 const storeNewUser = (rawUsername, rawPassword, rawRepeatPass) =>
     new Promise(async resolve => {
@@ -23,7 +23,7 @@ const storeNewUser = (rawUsername, rawPassword, rawRepeatPass) =>
 
         const user = new User({username, password})
         await user.save()
-        resolve()
+        resolve(username)
     })
 
 /**

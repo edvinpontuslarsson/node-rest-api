@@ -14,11 +14,17 @@ router.route('/sign-up')
 
   .post(async (req, res) => {
     try {
-      userDAL.storeNewUser(
+      const regUsername = await userDAL.storeNewUser(
         req.body.username,
         req.body.password,
         req.body.repeat_password
       )
+
+      const view =
+        signUpView.getSignUpSuccesRes(
+          req.headers.host, regUsername
+        )
+      res.send(view)
     } catch (err) {
       console.log(err)
     }
