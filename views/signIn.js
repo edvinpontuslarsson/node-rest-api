@@ -7,8 +7,8 @@
 const getSignInView = hostname =>
   JSON.stringify(
     {
-      rel: signIn,
-      href: `${hostname}/${signIn}`,
+      rel: sign_in,
+      href: `${hostname}/${sign_in}`,
       actions: [
         { method: get },
         {
@@ -26,7 +26,7 @@ const get = 'GET'
 const post = 'POST'
 const string = 'string'
 
-const signIn = 'sign-in'
+const sign_in = 'sign_in'
 
 const username = 'username'
 const password = 'password'

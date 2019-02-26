@@ -8,7 +8,7 @@ router.route('/sign-up')
   .get((req, res) => {
     res.status(200)
     const view =
-            signUpView.getSignUpView(req.headers.host)
+      signUpView.getSignUpView(req.headers.host)
     res.send(view)
   })
 
