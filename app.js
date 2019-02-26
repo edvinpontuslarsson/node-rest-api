@@ -1,15 +1,14 @@
 'use strict'
 
-require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const dbconfig = require('./config/dbConfig')
+require('dotenv').config()
 
 dbconfig.connect()
 const app = express()
 
 app.use(bodyParser.json())
-app.set('jwt_secret', process.env.JWT_SECRET)
 
 // sets routes
 app.use('/', require('./routes/index'))
