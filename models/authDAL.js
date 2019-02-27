@@ -9,7 +9,7 @@ require('dotenv').config()
 /**
  * @returns {Promise} auth token
  */
-const loginUser = (rawUsername, rawPassword) =>
+const authUser = (rawUsername, rawPassword) =>
   new Promise(resolve => {
     const username = sanitize(rawUsername)
     const password = sanitize(rawPassword)
@@ -38,26 +38,23 @@ const loginUser = (rawUsername, rawPassword) =>
   })
 
 /**
- * @param {*} cleanReq sanitized request
+ * @param cleanReq sanitized request
  */
-const isLoggedIn = cleanReq => 
+const getAuthData = cleanReq =>
   new Promise(resolve => {
-    if (!cleanReq.headers['authorization']) {
-      return false
-    }
+    if (!cleanReq.headers['authorization'])
+      throw new customError.ForbiddenError()
+
     const token = getExtractedToken(
       cleanReq.headers['authorization']
     )
-    // use getAuthData
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, authData) => {
+        if (err) throw new customError.ForbiddenError()
+        resolve(authData)
+      }
+    )
   })
-
-const isRightUser = (token, username) => {
-  
-}
-
-const logOutUser = () => {
-
-}
 
 /**
  * @param {String} authHeader ['authorization']
@@ -65,24 +62,7 @@ const logOutUser = () => {
 const getExtractedToken = authHeader => 
   authHeader.split(' ')[1]
 
-/**
- * @returns null if token is incorrect
- */
-const getAuthData = token =>
-  new Promise(resolve => {
-    jwt.verify(
-      token, 
-      process.env.JWT_SECRET, 
-      (err, authData) => {
-        if (err) resolve(null)
-        resolve(authData)
-      }
-    )
-  })
-
 module.exports = {
-  loginUser,
-  isLoggedIn,
-  isRightUser,
-  logOutUser
+  authUser,
+  getAuthData
 }

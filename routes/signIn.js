@@ -3,6 +3,7 @@
 const router = require('express').Router()
 const signInView = require('../views/signIn')
 const authDAL = require('../models/authDAL')
+const customError = require('../models/customError')
 
 router.route('/sign-in')
   .get((req, res) => {
@@ -19,7 +20,7 @@ router.route('/sign-in')
       const rawPassword = req.body.password
 
       const token = 
-        await authDAL.loginUser(rawUsername, rawPassword)
+        await authDAL.authUser(rawUsername, rawPassword)
 
       const view = signInView.getSignInSuccesRes(
           req.headers.host,
@@ -29,7 +30,10 @@ router.route('/sign-in')
       res.status(201)
       res.send(view)
     } catch (err) {
-      console.log(err)
+      if (typeof err === customError.InternalServerError)
+          res.sendStatus(500)
+      if (typeof err === customError.ForbiddenError)
+          res.sendStatus(403)
     }
   })
 

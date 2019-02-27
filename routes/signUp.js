@@ -3,6 +3,7 @@
 const router = require('express').Router()
 const signUpView = require('../views/signUp')
 const userDAL = require('../models/userDAL')
+const customError = require('../models/customError')
 
 router.route('/sign-up')
   .get((req, res) => {
@@ -29,7 +30,10 @@ router.route('/sign-up')
       res.status(201)
       res.send(view)
     } catch (err) {
-      console.log(err)
+      if (typeof err === customError.InternalServerError)
+          res.sendStatus(500)
+      if (typeof err === customError.ForbiddenError)
+          res.sendStatus(403)
     }
   })
 

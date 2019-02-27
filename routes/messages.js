@@ -3,6 +3,7 @@
 const router = require('express').Router()
 const messagesView = require('../views/messages')
 const messageDAL = require('../models/messageDAL')
+const customError = require('../models/customError')
 
 // perhaps get middleware function verify from authDAL
 
@@ -19,7 +20,10 @@ router.route('/messages')
             await messageDAL.storeMessage(req)
             res.send('mkay')
         } catch (err) {
-            console.log(err)
+            if (typeof err === customError.InternalServerError)
+                res.sendStatus(500)
+            if (typeof err === customError.ForbiddenError)
+                res.sendStatus(403)
         }
     })
 
