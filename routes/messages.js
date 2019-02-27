@@ -3,7 +3,8 @@
 const router = require('express').Router()
 const messagesView = require('../views/messages')
 const messageDAL = require('../models/messageDAL')
-const expressJWT = require('express-jwt')
+
+// perhaps get middleware function verify from authDAL
 
 router.route('/messages')
     .get((req, res) => {
@@ -13,11 +14,13 @@ router.route('/messages')
         res.send(view)
     })
 
-    .post(
-        expressJWT({ secret: process.env.JWT_SECRET }), 
-        async (req, res) => {
-           await messageDAL.storeMessage(req)
-           res.send('mkay')
+    .post(async (req, res) => {
+        try {
+            await messageDAL.storeMessage(req)
+            res.send('mkay')
+        } catch (err) {
+            console.log(err)
+        }
     })
 
 module.exports = router

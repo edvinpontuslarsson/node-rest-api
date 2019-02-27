@@ -8,7 +8,10 @@ const sanitize = require('mongo-sanitize')
 const storeMessage = rawRequest =>
     new Promise(resolve => {
         const req = sanitize(rawRequest)
-        console.log(req.user)
+        const isLoggedIn = await authDAL.isLoggedIn(req)
+        if (!isLoggedIn) throw new customError.ForbiddenError()
+
+        
     })
 
 module.exports = {

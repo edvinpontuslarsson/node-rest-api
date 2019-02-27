@@ -13,9 +13,14 @@ const getMessagesView = hostname =>
         { method: get },
         {
           method: post,
+          headers: [
+            {
+              name: 'Authorization', 
+              type: string, 
+              format: 'Bearer <access_token>'
+            }
+          ],
           fields: [
-            // need username or can get from token?
-            { name: 'access_token', type: string },
             { name: 'title', type: string },
             { name: 'message', type: string }
           ]

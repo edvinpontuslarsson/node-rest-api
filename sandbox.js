@@ -1,5 +1,5 @@
 const returnNothing = () => {}
 
-const test = returnNothing() || 'something'
+const test = returnNothing()
 
-console.log(test)
+if (!test) console.log('Works')

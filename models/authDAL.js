@@ -37,17 +37,48 @@ const loginUser = (rawUsername, rawPassword) =>
     })
   })
 
-const isLoggedIn = token => {
-
-}
+/**
+ * @param {*} cleanReq sanitized request
+ */
+const isLoggedIn = cleanReq => 
+  new Promise(resolve => {
+    if (!cleanReq.headers['authorization']) {
+      return false
+    }
+    const token = getExtractedToken(
+      cleanReq.headers['authorization']
+    )
+    // use getAuthData
+  })
 
 const isRightUser = (token, username) => {
-
+  
 }
 
 const logOutUser = () => {
 
 }
+
+/**
+ * @param {String} authHeader ['authorization']
+ */
+const getExtractedToken = authHeader => 
+  authHeader.split(' ')[1]
+
+/**
+ * @returns null if token is incorrect
+ */
+const getAuthData = token =>
+  new Promise(resolve => {
+    jwt.verify(
+      token, 
+      process.env.JWT_SECRET, 
+      (err, authData) => {
+        if (err) resolve(null)
+        resolve(authData)
+      }
+    )
+  })
 
 module.exports = {
   loginUser,
