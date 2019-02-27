@@ -9,10 +9,10 @@ require('dotenv').config()
 /**
  * @returns {Promise} auth token
  */
-const loginUser = (rawUsername, rawPpassword) =>
+const loginUser = (rawUsername, rawPassword) =>
   new Promise(resolve => {
     const username = sanitize(rawUsername)
-    const password = sanitize(rawPpassword)
+    const password = sanitize(rawPassword)
 
     User.findOne({ username }, (err, user) => {
       if (err) throw new customError.InternalServerError()
@@ -22,7 +22,10 @@ const loginUser = (rawUsername, rawPpassword) =>
         if (err) throw new customError.InternalServerError()
         if (!isCorrect) throw new customError.WrongUsernameOrPasswordError()
 
-        const payload = { username: user.username }     
+        const payload = {
+          id: user._id,
+          username: user.username
+        }     
         const token = jwt.sign(
             payload, 
             process.env.JWT_SECRET, 

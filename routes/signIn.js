@@ -21,9 +21,6 @@ router.route('/sign-in')
       const token = 
         await authDAL.loginUser(rawUsername, rawPassword)
 
-      // TODO: send token,
-      // pass as arg in SignInSuccesRes
-
       const view = signInView.getSignInSuccesRes(
           req.headers.host,
           token

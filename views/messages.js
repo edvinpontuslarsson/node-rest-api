@@ -14,7 +14,8 @@ const getMessagesView = hostname =>
         {
           method: post,
           fields: [
-            { name: 'jwt_token', type: string },
+            // need username or can get from token?
+            { name: 'access_token', type: string },
             { name: 'title', type: string },
             { name: 'message', type: string }
           ]
