@@ -28,7 +28,7 @@ router.route('/sign-in')
       )
 
       res.status(201)
-      res.send(view)
+      res.json(view)
     } catch (err) {
       if (err instanceof customError.InternalServerError) { res.sendStatus(500) }
       if (err instanceof customError.ForbiddenError) { res.sendStatus(403) }

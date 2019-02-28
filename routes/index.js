@@ -8,7 +8,7 @@ router.route('/')
     const view = indexView.getIndexView(req.headers.host)
 
     res.status(200)
-    res.send(view)
+    res.json(view)
   })
 
 module.exports = router

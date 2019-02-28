@@ -12,7 +12,7 @@ router.route('/create-message')
     const view =
             createMessageView.getMessagesView(req.headers.host)
     res.status(200)
-    res.send(view)
+    res.json(view)
   })
 
   .post(async (req, res) => {
@@ -24,7 +24,7 @@ router.route('/create-message')
       )
 
       res.status(201)
-      res.send(view)
+      res.json(view)
     } catch (err) {
       if (err instanceof customError.InternalServerError) { res.sendStatus(500) }
       if (err instanceof customError.ForbiddenError) { res.sendStatus(403) }
