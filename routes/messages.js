@@ -20,9 +20,9 @@ router.route('/messages')
             await messageDAL.storeMessage(req)
             res.send('mkay')
         } catch (err) {
-            if (typeof err === customError.InternalServerError)
+            if (err instanceof customError.InternalServerError)
                 res.sendStatus(500)
-            if (typeof err === customError.ForbiddenError)
+            if (err instanceof customError.ForbiddenError)
                 res.sendStatus(403)
         }
     })

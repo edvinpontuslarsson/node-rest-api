@@ -6,7 +6,7 @@ const customError = require('./customError')
 const sanitize = require('mongo-sanitize')
 
 const storeMessage = rawRequest =>
-    new Promise(resolve => {
+    new Promise(async resolve => {
         const req = sanitize(rawRequest)
         const auth = await authDAL.getAuthData(req)
         console.log(auth)

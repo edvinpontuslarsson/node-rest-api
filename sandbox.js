@@ -1,5 +1,10 @@
-const returnNothing = () => {}
+const customError = require('./models/customError')
 
-const test = returnNothing()
-
-if (!test) console.log('Works')
+try {
+    throw new customError.ForbiddenError()
+} catch (error) {
+    // console.log(error)
+    if (error instanceof customError.ForbiddenError) {
+        console.log('mkay')
+    }
+}
