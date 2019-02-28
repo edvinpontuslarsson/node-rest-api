@@ -13,14 +13,14 @@ const authUser = (rawUsername, rawPassword) =>
   new Promise((resolve, reject) => {
     const username = sanitize(rawUsername)
     const password = sanitize(rawPassword)
-    
+
     User.findOne({ username }, (err, user) => {
-      if (err) throw new customError.InternalServerError()
-      if (!user) return reject('forbidden')
+      if (err) { return reject(new customError.InternalServerError()) }
+      if (!user) { return reject(new customError.WrongUsernameOrPasswordError()) }
 
       user.validatePassword(password, (err, isCorrect) => {
-        if (err) throw new customError.InternalServerError()
-        if (!isCorrect) throw new customError.WrongUsernameOrPasswordError()
+        if (err) { return reject(new customError.InternalServerError()) }
+        if (!isCorrect) { return reject(new customError.WrongUsernameOrPasswordError()) }
 
         const payload = {
           id: user._id,
@@ -43,15 +43,15 @@ const authUser = (rawUsername, rawPassword) =>
  * @returns promise object with string properties id & username
  */
 const getAuthData = cleanReq =>
-  new Promise(resolve => {
-    if (!cleanReq.headers['authorization']) { throw new customError.ForbiddenError() }
+  new Promise((resolve, reject) => {
+    if (!cleanReq.headers['authorization']) { return reject(new customError.ForbiddenError()) }
 
     const token = getExtractedToken(
       cleanReq.headers['authorization']
     )
 
     jwt.verify(token, process.env.JWT_SECRET, (err, authData) => {
-      if (err) throw new customError.ForbiddenError()
+      if (err) return reject(new customError.ForbiddenError())
       resolve(authData)
     }
     )

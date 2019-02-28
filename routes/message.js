@@ -8,15 +8,15 @@ const messageDAL = require('../models/messageDAL')
 const customError = require('../models/customError')
 
 router.route('/message/:id')
-    .get(async (req, res) => {
-        const messageData = 
+  .get(async (req, res) => {
+    const messageData =
             await messageDAL.getMessageData(req.params.id)
-    })
+  })
 
-    .patch(async (req, res) => {
+  .patch(async (req, res) => {
 
-    })
+  })
 
-    .delete(async (req, res) => {
+  .delete(async (req, res) => {
 
-    })
+  })

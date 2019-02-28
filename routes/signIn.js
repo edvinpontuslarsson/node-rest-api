@@ -31,7 +31,7 @@ router.route('/sign-in')
       res.json(view)
     } catch (err) {
       if (err instanceof customError.InternalServerError) { res.sendStatus(500) }
-      if (err === 'forbidden') { res.sendStatus(403) }
+      if (err instanceof customError.ForbiddenError) { res.sendStatus(401) }
     }
   })
 

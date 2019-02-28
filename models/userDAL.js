@@ -30,18 +30,18 @@ const storeNewUser = (rawUsername, rawPassword, rawRepeatPass) =>
  * @returns {Promise} empty resolve promise
  */
 const validateRegistration = (username, password, repeatpass) =>
-  new Promise(async resolve => {
-    if (username.length < 3) { throw new customError.UsernameTooShortError() }
-    if (username.length > 30) { throw new customError.UsernameTooLongError() }
-    if (password.length < 5) { throw new customError.PasswordTooShortError() }
-    if (password !== repeatpass) { throw new customError.PasswordsDoNotMatchError() }
+  new Promise(async (resolve, reject) => {
+    if (username.length < 3) { return reject(new customError.UsernameTooShortError()) }
+    if (username.length > 30) { return reject(new customError.UsernameTooLongError()) }
+    if (password.length < 5) { return reject(new customError.PasswordTooShortError()) }
+    if (password !== repeatpass) { return reject(new customError.PasswordsDoNotMatchError()) }
 
     const isUsernameTaken = await User.findOne(
       { username },
-      err => { if (err) throw new customError.InternalServerError() }
+      err => { if (err) return reject(new customError.InternalServerError()) }
     )
 
-    if (isUsernameTaken !== null) { throw new customError.OccupiedUsernameError() }
+    if (isUsernameTaken !== null) { return reject(new customError.OccupiedUsernameError()) }
 
     resolve()
   })

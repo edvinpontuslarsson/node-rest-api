@@ -28,7 +28,7 @@ const getSignInSuccesRes = (hostname, token) => {
     info: `You are now logged in!`,
     access_token: token,
     links: [
-        createMessageView.getCreateMessageView(hostname)
+      createMessageView.getCreateMessageView(hostname)
     ]
   }
 }

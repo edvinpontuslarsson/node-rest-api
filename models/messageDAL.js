@@ -31,7 +31,7 @@ const storeMessage = rawRequest =>
  * @returns promise with message data object
  */
 const getMessageData = messageID =>
-    Message.findById
+  Message.findById
 
 module.exports = {
   storeMessage,

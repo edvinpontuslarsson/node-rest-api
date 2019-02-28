@@ -15,7 +15,7 @@ router.route('/create-message')
 
   .post(async (req, res) => {
     try {
-      const message = 
+      const message =
         await messageDAL.storeMessage(req)
       const view = createMessageView.getCreatedMessageRes(
         req.headers.host, message
