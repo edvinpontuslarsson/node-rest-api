@@ -1,6 +1,6 @@
 'use strict'
 
-const messagesView = require('./messages')
+const createMessageView = require('./v_createMessage')
 
 /**
  * @param {String} hostname
@@ -31,7 +31,7 @@ const getSignInSuccesRes = (hostname, token) =>
       access_token: token,
       links: [
         JSON.parse(
-          messagesView.getMessagesView(hostname)
+          createMessageView.getCreateMessageView(hostname)
         )
       ]
     }

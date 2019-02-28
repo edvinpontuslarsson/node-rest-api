@@ -1,7 +1,7 @@
 'use strict'
 
 const router = require('express').Router()
-const signUpView = require('../views/signUp')
+const signUpView = require('../views/v_signUp')
 const userDAL = require('../models/userDAL')
 const customError = require('../models/customError')
 
@@ -30,10 +30,8 @@ router.route('/sign-up')
       res.status(201)
       res.send(view)
     } catch (err) {
-      if (err instanceof customError.InternalServerError)
-          res.sendStatus(500)
-      if (err instanceof customError.ForbiddenError)
-          res.sendStatus(403)
+      if (err instanceof customError.InternalServerError) { res.sendStatus(500) }
+      if (err instanceof customError.ForbiddenError) { res.sendStatus(403) }
     }
   })
 

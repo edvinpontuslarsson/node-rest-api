@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 app.use('/', require('./routes/index'))
 app.use('/', require('./routes/signUp'))
 app.use('/', require('./routes/signIn'))
-app.use('/', require('./routes/messages'))
+app.use('/', require('./routes/createMessage'))
 
 const port = process.env.PORT
 

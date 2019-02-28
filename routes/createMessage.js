@@ -1,30 +1,26 @@
 'use strict'
 
 const router = require('express').Router()
-const signInView = require('../views/v_signIn')
-const authDAL = require('../models/authDAL')
+const createMessageView = require('../views/v_createMessage')
+const messageDAL = require('../models/messageDAL')
 const customError = require('../models/customError')
 
-router.route('/sign-in')
+// perhaps get middleware function verify from authDAL
+
+router.route('/create-message')
   .get((req, res) => {
     const view =
-            signInView.getSignInView(req.headers.host)
-
+            createMessageView.getMessagesView(req.headers.host)
     res.status(200)
     res.send(view)
   })
 
   .post(async (req, res) => {
     try {
-      const rawUsername = req.body.username
-      const rawPassword = req.body.password
-
-      const token =
-        await authDAL.authUser(rawUsername, rawPassword)
-
-      const view = signInView.getSignInSuccesRes(
-        req.headers.host,
-        token
+      const messageID =
+                await messageDAL.storeMessage(req)
+      const view = createMessageView.getCreatedMessageRes(
+        req.headers.host, messageID
       )
 
       res.status(201)

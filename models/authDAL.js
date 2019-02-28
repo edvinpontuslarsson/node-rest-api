@@ -25,11 +25,11 @@ const authUser = (rawUsername, rawPassword) =>
         const payload = {
           id: user._id,
           username: user.username
-        }     
+        }
         const token = jwt.sign(
-            payload, 
-            process.env.JWT_SECRET, 
-            { expiresIn: '10h' }
+          payload,
+          process.env.JWT_SECRET,
+          { expiresIn: '10h' }
         )
 
         resolve(token)
@@ -38,28 +38,29 @@ const authUser = (rawUsername, rawPassword) =>
   })
 
 /**
- * @param cleanReq sanitized request
+ * @param cleanReq sanitized router request
+ * @throws {customError.ForbiddenError} if auth is incorrect
+ * @returns promise object with string properties id & username
  */
 const getAuthData = cleanReq =>
   new Promise(resolve => {
-    if (!cleanReq.headers['authorization'])
-      throw new customError.ForbiddenError()
+    if (!cleanReq.headers['authorization']) { throw new customError.ForbiddenError() }
 
     const token = getExtractedToken(
       cleanReq.headers['authorization']
     )
 
     jwt.verify(token, process.env.JWT_SECRET, (err, authData) => {
-        if (err) throw new customError.ForbiddenError()
-        resolve(authData)
-      }
+      if (err) throw new customError.ForbiddenError()
+      resolve(authData)
+    }
     )
   })
 
 /**
  * @param {String} authHeader ['authorization']
  */
-const getExtractedToken = authHeader => 
+const getExtractedToken = authHeader =>
   authHeader.split(' ')[1]
 
 module.exports = {

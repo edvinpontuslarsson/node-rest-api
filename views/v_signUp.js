@@ -1,6 +1,6 @@
 'use strict'
 
-const signInView = require('./signIn')
+const signInView = require('./v_signIn')
 
 /**
  * @param {String} hostname
