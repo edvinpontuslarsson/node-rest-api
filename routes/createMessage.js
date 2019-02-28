@@ -5,8 +5,6 @@ const createMessageView = require('../views/v_createMessage')
 const messageDAL = require('../models/messageDAL')
 const customError = require('../models/customError')
 
-// perhaps get middleware function verify from authDAL
-
 router.route('/create-message')
   .get((req, res) => {
     const view =
@@ -17,10 +15,10 @@ router.route('/create-message')
 
   .post(async (req, res) => {
     try {
-      const messageID =
-                await messageDAL.storeMessage(req)
+      const message = 
+        await messageDAL.storeMessage(req)
       const view = createMessageView.getCreatedMessageRes(
-        req.headers.host, messageID
+        req.headers.host, message
       )
 
       res.status(201)

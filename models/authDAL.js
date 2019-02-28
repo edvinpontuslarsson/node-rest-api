@@ -10,13 +10,13 @@ require('dotenv').config()
  * @returns {Promise} auth token
  */
 const authUser = (rawUsername, rawPassword) =>
-  new Promise(resolve => {
+  new Promise((resolve, reject) => {
     const username = sanitize(rawUsername)
     const password = sanitize(rawPassword)
-
+    
     User.findOne({ username }, (err, user) => {
       if (err) throw new customError.InternalServerError()
-      if (!user) throw new customError.WrongUsernameOrPasswordError()
+      if (!user) return reject('forbidden')
 
       user.validatePassword(password, (err, isCorrect) => {
         if (err) throw new customError.InternalServerError()

@@ -7,7 +7,8 @@ const sanitize = require('mongo-sanitize')
 /**
  * @param {*} rawRequest raw router request
  * @throws {customError.ForbiddenError} if auth is incorrect
- * @returns {String} promise with message id
+ * @returns promise object with message data, properties:
+ * _id, title, message, userID, username
  */
 const storeMessage = rawRequest =>
   new Promise(async resolve => {
@@ -23,9 +24,16 @@ const storeMessage = rawRequest =>
       username: auth.username
     })
     await message.save()
-    resolve(message._id)
+    resolve(message)
   })
 
+/**
+ * @returns promise with message data object
+ */
+const getMessageData = messageID =>
+    Message.findById
+
 module.exports = {
-  storeMessage
+  storeMessage,
+  getMessageData
 }

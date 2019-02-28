@@ -1,13 +1,18 @@
 'use strict'
 
-const getMessageView = (hostname, messageID) => {
+/**
+ * @param {Object} messageData message object
+ */
+const getMessageView = (hostname, messageData) => {
     return {
-        rel: `${message}/${messageID}`,
-        href: `${hostname}/${message}/${messageID}`,
+        rel: `message/${messageData._id}`,
+        href: `${hostname}/message/${messageData._id}`,
+        title: messageData.title,
+        message: messageData.message,
         actions: [
             { method: get },
             {
-                method: put,
+                method: patch,
                 headers: [
                     {
                       name: 'Authorization',
@@ -45,11 +50,9 @@ const getMessageView = (hostname, messageID) => {
 }
 
 const get = 'GET'
-const put = 'PUT'
+const patch = 'PATCH'
 const httpDelete = 'DELETE'
 const string = 'string'
-
-const message = 'message'
 
 module.exports = {
     getMessageView
