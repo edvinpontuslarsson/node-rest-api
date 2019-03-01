@@ -16,7 +16,6 @@ const saveWebhook = rawRequest =>
     try {
       const req = sanitize(rawRequest)
 
-      // throws error if auth is incorrect
       const auth = await authDAL.getAuthData(req)
 
       const webhook = new Webhook({
