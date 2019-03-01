@@ -3,6 +3,7 @@
 const signUpView = require('./v_signUp')
 const signInView = require('./v_signIn')
 const createMessageView = require('./v_createMessage')
+const registerWebhooksView = require('./webhook/v_registerWebhook')
 
 const getIndexView = hostname => {
   return {
@@ -11,7 +12,8 @@ const getIndexView = hostname => {
       // objects with links & instructions
       signUpView.getSignUpView(hostname),
       signInView.getSignInView(hostname),
-      createMessageView.getCreateMessageView(hostname)
+      createMessageView.getCreateMessageView(hostname),
+      registerWebhooksView.getRegisterWebhookView(hostname)
     ]
   }
 }
