@@ -5,7 +5,7 @@ const authDAL = require('./authDAL')
 const sanitize = require('mongo-sanitize')
 
 /**
- * @param {*} rawRequest raw router request
+ * @param {Object} rawRequest raw router request
  * @throws {customError.ForbiddenError} if auth is incorrect
  * @returns promise object with message data, properties:
  * _id, title, message, userID, username
@@ -30,8 +30,11 @@ const storeMessage = rawRequest =>
 /**
  * @returns promise with message data object
  */
-const getMessageData = messageID =>
-  Message.findById
+const getMessageData = rawMessageID => {
+  const messageID = sanitize(rawMessageID)
+  
+  Message.findById // TODO: complete this
+}
 
 module.exports = {
   storeMessage,

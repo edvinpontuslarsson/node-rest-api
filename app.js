@@ -10,11 +10,18 @@ const app = express()
 
 app.use(bodyParser.json())
 
-// sets routes
+/**
+ * sets routes
+ */
+// index
 app.use('/', require('./routes/index'))
+// user routes
 app.use('/', require('./routes/signUp'))
 app.use('/', require('./routes/signIn'))
+// message routes
 app.use('/', require('./routes/createMessage'))
+// webhook routes
+app.use('/', require('./routes/webhook/registerWebhook'))
 
 const port = process.env.PORT
 

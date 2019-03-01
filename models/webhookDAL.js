@@ -1,1 +1,41 @@
 'use strict'
+
+const Webhook = require('./Webhook')
+const authDAL = require('./authDAL')
+const sanitize = require('mongo-sanitize')
+
+/**
+ * @param {Object} rawRequest raw router request
+ * @throws {customError.ForbiddenError} if auth is incorrect
+ * @returns promise object with message data, properties:
+ * _id, webhook_url, userID, username
+ */
+const saveWebhook = rawRequest =>
+    new Promise(async resolve => {
+        const req = sanitize(rawRequest)
+
+        // throws error if auth is incorrect
+        const auth = await authDAL.getAuthData(req)
+
+        const webhook = new Webhook({
+            webhook_url: req.body.webhook_url,
+            userID: auth.id,
+            username: auth.username
+        })
+        await webhook.save()
+        resolve(webhook)
+    })
+
+/**
+ * @returns promise with webhook data object
+ */
+const getWebhookData = rawWebhookID => {
+    const webhookID = sanitize(rawWebhookID)
+
+    // TODO: complete this
+}
+
+module.exports = {
+    saveWebhook,
+    getWebhookData
+}

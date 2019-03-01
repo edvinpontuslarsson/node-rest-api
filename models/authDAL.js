@@ -16,24 +16,26 @@ const authUser = (rawUsername, rawPassword) =>
 
     User.findOne({ username }, (err, user) => {
       if (err) { return reject(new customError.InternalServerError()) }
-      if (!user) { return reject(new customError.WrongUsernameOrPasswordError()) }
-
-      user.validatePassword(password, (err, isCorrect) => {
-        if (err) { return reject(new customError.InternalServerError()) }
-        if (!isCorrect) { return reject(new customError.WrongUsernameOrPasswordError()) }
-
-        const payload = {
-          id: user._id,
-          username: user.username
-        }
-        const token = jwt.sign(
-          payload,
-          process.env.JWT_SECRET,
-          { expiresIn: '10h' }
-        )
-
-        resolve(token)
-      })
+      if (!user) {
+        return reject(new customError.WrongUsernameOrPasswordError())
+      }
+        user.validatePassword(password, (err, isCorrect) => {
+          if (err) { return reject(new customError.InternalServerError()) }
+          if (!isCorrect) { return reject(new customError.WrongUsernameOrPasswordError()) }
+  
+          const payload = {
+            id: user._id,
+            username: user.username
+          }
+          const token = jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: '10h' }
+          )
+  
+          resolve(token)
+        })
+      //}
     })
   })
 

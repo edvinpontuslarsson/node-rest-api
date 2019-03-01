@@ -30,8 +30,9 @@ router.route('/sign-in')
       res.status(201)
       res.json(view)
     } catch (err) {
+      console.log(err)
       if (err instanceof customError.InternalServerError) { res.sendStatus(500) }
-      if (err instanceof customError.ForbiddenError) { res.sendStatus(401) }
+      if (err instanceof customError.WrongUsernameOrPasswordError) { res.sendStatus(401) }
     }
   })
 
