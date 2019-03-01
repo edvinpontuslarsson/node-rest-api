@@ -4,6 +4,7 @@ const router = require('express').Router()
 const createMessageView = require('../views/v_createMessage')
 const messageDAL = require('../models/messageDAL')
 const customError = require('../models/customError')
+const notification = require('../notifications/notification')
 
 router.route('/create-message')
   .get((req, res) => {
@@ -20,6 +21,8 @@ router.route('/create-message')
       const view = createMessageView.getCreatedMessageRes(
         req.headers.host, message
       )
+
+      notification.notifyNewMessage(message)
 
       res.status(201)
       res.json(view)

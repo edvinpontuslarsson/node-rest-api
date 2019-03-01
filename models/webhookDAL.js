@@ -39,7 +39,11 @@ const getWebhookData = rawWebhookID => {
   // TODO: complete this
 }
 
+const getAllWebhookObjectsPromise = () =>
+  Webhook.find({}).exec()
+
 module.exports = {
   saveWebhook,
-  getWebhookData
+  getWebhookData,
+  getAllWebhookObjectsPromise
 }
