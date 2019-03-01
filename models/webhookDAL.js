@@ -3,6 +3,7 @@
 const Webhook = require('./Webhook')
 const authDAL = require('./authDAL')
 const sanitize = require('mongo-sanitize')
+const customError = require('./customError')
 
 /**
  * @param {Object} rawRequest raw router request
@@ -11,31 +12,35 @@ const sanitize = require('mongo-sanitize')
  * _id, webhook_url, userID, username
  */
 const saveWebhook = rawRequest =>
-    new Promise(async resolve => {
-        const req = sanitize(rawRequest)
+  new Promise(async (resolve, reject) => {
+    try {
+      const req = sanitize(rawRequest)
 
-        // throws error if auth is incorrect
-        const auth = await authDAL.getAuthData(req)
+      // throws error if auth is incorrect
+      const auth = await authDAL.getAuthData(req)
 
-        const webhook = new Webhook({
-            webhook_url: req.body.webhook_url,
-            userID: auth.id,
-            username: auth.username
-        })
-        await webhook.save()
-        resolve(webhook)
-    })
+      const webhook = new Webhook({
+        webhook_url: req.body.webhook_url,
+        userID: auth.id,
+        username: auth.username
+      })
+      await webhook.save()
+      resolve(webhook)
+    } catch (error) {
+      return reject(new customError.ForbiddenError())
+    }
+  })
 
 /**
  * @returns promise with webhook data object
  */
 const getWebhookData = rawWebhookID => {
-    const webhookID = sanitize(rawWebhookID)
+  const webhookID = sanitize(rawWebhookID)
 
-    // TODO: complete this
+  // TODO: complete this
 }
 
 module.exports = {
-    saveWebhook,
-    getWebhookData
+  saveWebhook,
+  getWebhookData
 }

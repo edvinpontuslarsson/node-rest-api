@@ -36,7 +36,7 @@ const storeMessage = rawRequest =>
  */
 const getMessageData = rawMessageID => {
   const messageID = sanitize(rawMessageID)
-  
+
   Message.findById // TODO: complete this
 }
 

@@ -19,7 +19,7 @@ const authUser = (rawUsername, rawPassword) =>
       if (!user) {
         return reject(new customError.WrongUsernameOrPasswordError())
       }
-      
+
       user.validatePassword(password, (err, isCorrect) => {
         if (err) { return reject(new customError.InternalServerError()) }
         if (!isCorrect) { return reject(new customError.WrongUsernameOrPasswordError()) }
