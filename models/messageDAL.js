@@ -3,6 +3,7 @@
 const Message = require('./Message')
 const authDAL = require('./authDAL')
 const sanitize = require('mongo-sanitize')
+const customError = require('./customError')
 
 /**
  * @param {Object} rawRequest raw router request
@@ -11,20 +12,23 @@ const sanitize = require('mongo-sanitize')
  * _id, title, message, userID, username
  */
 const storeMessage = rawRequest =>
-  new Promise(async resolve => {
-    const req = sanitize(rawRequest)
+  new Promise(async (resolve, reject) => {
+    try {
+      const req = sanitize(rawRequest)
 
-    // throws error if auth is incorrect
-    const auth = await authDAL.getAuthData(req)
+      const auth = await authDAL.getAuthData(req)
 
-    const message = new Message({
-      title: req.body.title,
-      message: req.body.message,
-      userID: auth.id,
-      username: auth.username
-    })
-    await message.save()
-    resolve(message)
+      const message = new Message({
+        title: req.body.title,
+        message: req.body.message,
+        userID: auth.id,
+        username: auth.username
+      })
+      await message.save()
+      resolve(message)
+    } catch (error) {
+      return reject(new customError.ForbiddenError())
+    }
   })
 
 /**

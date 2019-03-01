@@ -19,23 +19,23 @@ const authUser = (rawUsername, rawPassword) =>
       if (!user) {
         return reject(new customError.WrongUsernameOrPasswordError())
       }
-        user.validatePassword(password, (err, isCorrect) => {
-          if (err) { return reject(new customError.InternalServerError()) }
-          if (!isCorrect) { return reject(new customError.WrongUsernameOrPasswordError()) }
-  
-          const payload = {
-            id: user._id,
-            username: user.username
-          }
-          const token = jwt.sign(
-            payload,
-            process.env.JWT_SECRET,
-            { expiresIn: '10h' }
-          )
-  
-          resolve(token)
-        })
-      //}
+      
+      user.validatePassword(password, (err, isCorrect) => {
+        if (err) { return reject(new customError.InternalServerError()) }
+        if (!isCorrect) { return reject(new customError.WrongUsernameOrPasswordError()) }
+
+        const payload = {
+          id: user._id,
+          username: user.username
+        }
+        const token = jwt.sign(
+          payload,
+          process.env.JWT_SECRET,
+          { expiresIn: '10h' }
+        )
+
+        resolve(token)
+      })
     })
   })
 
@@ -46,17 +46,20 @@ const authUser = (rawUsername, rawPassword) =>
  */
 const getAuthData = cleanReq =>
   new Promise((resolve, reject) => {
-    if (!cleanReq.headers['authorization']) { return reject(new customError.ForbiddenError()) }
+    if (!cleanReq.headers['authorization']) {
+      return reject(new customError.ForbiddenError())
+    }
 
     const token = getExtractedToken(
       cleanReq.headers['authorization']
     )
 
     jwt.verify(token, process.env.JWT_SECRET, (err, authData) => {
-      if (err) return reject(new customError.ForbiddenError())
+      if (err) {
+        return reject(new customError.ForbiddenError())
+      }
       resolve(authData)
-    }
-    )
+    })
   })
 
 /**
