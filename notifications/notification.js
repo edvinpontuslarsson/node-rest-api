@@ -19,8 +19,13 @@ const notifyNewMessage = async messageData => {
     
     webhookObjects.forEach(async hookObj => {
         await fetch(hookObj.webhook_url, {
-            method: 'POST', body: publicMessageInfo
-        }).then(res => res.json())
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(publicMessageInfo)
+        })
+        .catch(err => console.error(err))
     })
 }
 
