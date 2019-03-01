@@ -2,10 +2,6 @@
 
 const messageView = require('./v_message')
 
-/**
- * @param {String} hostname
- * @returns JSON with links & instructions
- */
 const getCreateMessageView = hostname => {
   return {
     rel: createMessage,
@@ -30,11 +26,15 @@ const getCreateMessageView = hostname => {
   }
 }
 
-const getCreatedMessageRes = (hostname, messageID) => {
+/**
+ * @param {Object} messageData message object
+ */
+const getCreatedMessageRes = (hostname, messageData) => {
   return {
-    info: `Message with id: ${messageID} stored successfully`,
+    info: `Message with id: ${messageData._id} stored successfully`,
+    message_id: messageData._id,
     links: [
-      messageView.getMessageView(hostname, messageID)
+      messageView.getMessageView(hostname, messageData)
     ]
   }
 }

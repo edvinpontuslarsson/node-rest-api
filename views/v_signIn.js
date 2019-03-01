@@ -2,10 +2,6 @@
 
 const createMessageView = require('./v_createMessage')
 
-/**
- * @param {String} hostname
- * @returns JSON with links & instructions
- */
 const getSignInView = hostname => {
   return {
     rel: sign_in,

@@ -2,10 +2,6 @@
 
 const signInView = require('./v_signIn')
 
-/**
- * @param {String} hostname
- * @returns JSON with links & instructions
- */
 const getSignUpView = hostname => {
   return {
     rel: signUp,
@@ -24,10 +20,6 @@ const getSignUpView = hostname => {
   }
 }
 
-/**
- * @param {String} hostname
- * @returns JSON with links & instructions
- */
 const getSignUpSuccesRes = (hostname, regUsername) => {
   return {
     info: `You are now a registered user, welcome aboard ${regUsername}!`,
