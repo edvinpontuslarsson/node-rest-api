@@ -1,7 +1,7 @@
 'use strict'
 
 const router = require('express').Router()
-const indexView = require('../views/v_index')
+const indexView = require('../../views/home/v_index')
 
 router.route('/')
   .get((req, res) => {

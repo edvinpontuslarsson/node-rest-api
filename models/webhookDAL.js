@@ -1,6 +1,6 @@
 'use strict'
 
-const Webhook = require('./Webhook')
+const Webhook = require('./mongoose-models/Webhook')
 const authDAL = require('./authDAL')
 const sanitize = require('mongo-sanitize')
 const customError = require('./customError')

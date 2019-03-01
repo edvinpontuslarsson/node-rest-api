@@ -3,9 +3,9 @@
 // route('/message/:id') get/patch/delete
 
 const router = require('express').Router()
-const messageView = require('../views/v_message')
-const messageDAL = require('../models/messageDAL')
-const customError = require('../models/customError')
+const messageView = require('../../views/message/v_message')
+const messageDAL = require('../../models/messageDAL')
+const customError = require('../../models/customError')
 
 router.route('/message/:id')
   .get(async (req, res) => {

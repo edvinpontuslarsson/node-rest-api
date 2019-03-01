@@ -1,9 +1,9 @@
 'use strict'
 
 const router = require('express').Router()
-const signInView = require('../views/v_signIn')
-const authDAL = require('../models/authDAL')
-const customError = require('../models/customError')
+const signInView = require('../../views/user/v_signIn')
+const authDAL = require('../../models/authDAL')
+const customError = require('../../models/customError')
 
 router.route('/sign-in')
   .get((req, res) => {

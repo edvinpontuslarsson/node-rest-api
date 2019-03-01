@@ -1,9 +1,9 @@
 'use strict'
 
-const signUpView = require('./v_signUp')
-const signInView = require('./v_signIn')
-const createMessageView = require('./v_createMessage')
-const registerWebhooksView = require('./webhook/v_registerWebhook')
+const signUpView = require('../user/v_signUp')
+const signInView = require('../user/v_signIn')
+const createMessageView = require('../message/v_createMessage')
+const registerWebhooksView = require('../webhook/v_registerWebhook')
 
 const getIndexView = hostname => {
   return {

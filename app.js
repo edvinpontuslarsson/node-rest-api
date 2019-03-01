@@ -14,12 +14,12 @@ app.use(bodyParser.json())
  * sets routes
  */
 // index
-app.use('/', require('./routes/index'))
+app.use('/', require('./routes/home/index'))
 // user routes
-app.use('/', require('./routes/signUp'))
-app.use('/', require('./routes/signIn'))
+app.use('/', require('./routes/user/signUp'))
+app.use('/', require('./routes/user/signIn'))
 // message routes
-app.use('/', require('./routes/createMessage'))
+app.use('/', require('./routes/message/createMessage'))
 // webhook routes
 app.use('/', require('./routes/webhook/registerWebhook'))
 

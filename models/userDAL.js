@@ -1,6 +1,6 @@
 'use strict'
 
-const User = require('./User')
+const User = require('./mongoose-models/User')
 const customError = require('./customError')
 const sanitize = require('mongo-sanitize')
 

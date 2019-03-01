@@ -1,9 +1,9 @@
 'use strict'
 
 const router = require('express').Router()
-const signUpView = require('../views/v_signUp')
-const userDAL = require('../models/userDAL')
-const customError = require('../models/customError')
+const signUpView = require('../../views/user/v_signUp')
+const userDAL = require('../../models/userDAL')
+const customError = require('../../models/customError')
 
 router.route('/sign-up')
   .get((req, res) => {

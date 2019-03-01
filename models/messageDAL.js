@@ -1,6 +1,6 @@
 'use strict'
 
-const Message = require('./Message')
+const Message = require('./mongoose-models/Message')
 const authDAL = require('./authDAL')
 const sanitize = require('mongo-sanitize')
 const customError = require('./customError')

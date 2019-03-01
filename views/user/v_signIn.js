@@ -1,6 +1,6 @@
 'use strict'
 
-const createMessageView = require('./v_createMessage')
+const createMessageView = require('../message/v_createMessage')
 
 const getSignInView = hostname => {
   return {
