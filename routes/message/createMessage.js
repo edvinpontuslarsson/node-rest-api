@@ -9,7 +9,7 @@ const notification = require('../../notifications/notification')
 router.route('/create-message')
   .get((req, res) => {
     const view =
-            createMessageView.getMessagesView(req.headers.host)
+            createMessageView.getCreateMessageView(req.headers.host)
     res.status(200)
     res.json(view)
   })
