@@ -9,6 +9,7 @@ const getMessageView = (hostname, messageData) => {
     href: `${hostname}/message/${messageData._id}`,
     title: messageData.title,
     message: messageData.message,
+    username: messageData.username,
     actions: [
       { method: get },
       {

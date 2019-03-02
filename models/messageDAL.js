@@ -7,9 +7,9 @@ const customError = require('./customError')
 
 /**
  * @param {Object} rawRequest raw router request
- * @throws {customError.ForbiddenError} if auth is incorrect
  * @returns promise object with message data, properties:
  * _id, title, message, userID, username
+ * @throws {customError.ForbiddenError} if auth is incorrect
  */
 const storeMessage = rawRequest =>
   new Promise(async (resolve, reject) => {
@@ -34,6 +34,7 @@ const storeMessage = rawRequest =>
 
 /**
  * @returns promise with message data object
+ * @throws {customError.NotFoundError}
  */
 const getMessageData = rawMessageID => {
   const messageID = sanitize(rawMessageID)
@@ -50,6 +51,9 @@ const getMessageData = rawMessageID => {
 /**
  * @param {Object} rawRequest raw router request
  * @returns {Object} edited message, as promise
+ * @throws {customError.ForbiddenError} if auth is incorrect
+ * @throws {customError.NotFoundError}
+ * @throws {customError.InternalServerError}
  */
 const editMessage = rawRequest =>
   new Promise(async (resolve, reject) => {
@@ -95,6 +99,39 @@ const editMessage = rawRequest =>
   })
 
 /**
+ * @param {Object} rawRequest raw router request
+ * @returns empty promise
+ * @throws {customError.ForbiddenError} if auth is incorrect
+ * @throws {customError.NotFoundError}
+ */
+const deleteMessage = rawRequest =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const req = sanitize(rawRequest)
+
+      const messageData = await getMessageData(
+        req.params.id
+      )
+      // rejects ForbiddenError if auth is incorrect
+      const auth = await authDAL.getAuthData(req)
+
+      if (messageData.userID !== auth.id) {
+        return reject(new customError.ForbiddenError())
+      }
+
+      await Message.findOneAndRemove({ _id: req.params.id })
+      resolve()
+    } catch (error) {
+      if (error instanceof customError.NotFoundError) {
+        return reject(new customError.NotFoundError())
+      }
+      if (error instanceof customError.ForbiddenError) {
+        return reject(new customError.ForbiddenError())
+      }
+    }
+  })
+
+/**
  * @returns {Array} promise array with 
  * objects with properties:
  * _id, title, message, userID, username
@@ -106,5 +143,6 @@ module.exports = {
   storeMessage,
   getMessageData,
   getAllMessages,
-  editMessage
+  editMessage,
+  deleteMessage
 }

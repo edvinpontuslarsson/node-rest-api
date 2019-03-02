@@ -1,7 +1,5 @@
 'use strict'
 
-// route('/message/:id') get/patch/delete
-
 const router = require('express').Router()
 const messageView = require('../../views/message/v_message')
 const messageDAL = require('../../models/messageDAL')
@@ -31,7 +29,8 @@ router.route('/message/:id')
       const view = messageView.getMessageView(
         req.headers.host, editedMsgData
       )
-      res.status(201)
+      const created = 201
+      res.status(created)
       res.json(view)
     } catch (error) {
       if (error instanceof customError.NotFoundError) {
@@ -47,7 +46,21 @@ router.route('/message/:id')
   })
 
   .delete(async (req, res) => {
-
+    try {
+      messageDAL.deleteMessage(req)
+      const noContent = 204
+      res.sendStatus(noContent)
+    } catch (error) {
+      if (error instanceof customError.NotFoundError) {
+        res.sendStatus(404)
+      }
+      if (error instanceof customError.ForbiddenError) {
+        res.sendStatus(403)
+      }
+      if (error instanceof customError.InternalServerError) {
+        res.sendStatus(500)
+      }
+    }
   })
 
 module.exports = router
