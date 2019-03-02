@@ -16,6 +16,7 @@ const storeMessage = rawRequest =>
     try {
       const req = sanitize(rawRequest)
 
+      // rejects ForbiddenError if auth is incorrect
       const auth = await authDAL.getAuthData(req)
 
       const message = new Message({
@@ -47,6 +48,53 @@ const getMessageData = rawMessageID => {
 }
 
 /**
+ * @param {Object} rawRequest raw router request
+ * @returns {Object} edited message, as promise
+ */
+const editMessage = rawRequest =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const req = sanitize(rawRequest)
+
+      const messageData = await getMessageData(
+        req.params.id
+      )
+      // rejects ForbiddenError if auth is incorrect
+      const auth = await authDAL.getAuthData(req)
+
+      if (messageData.userID !== auth.id) {
+        return reject(new customError.ForbiddenError())
+      }
+
+      // present messageData if undefined in req
+      const newData = {
+        title: req.body.title || messageData.title,
+        message: req.body.message || messageData.message
+      }
+
+      Message.findByIdAndUpdate(
+        req.params.id,
+        newData,
+        { new: true },
+        (err, editedMsg) => {
+          if (err) {
+            return reject(new customError.InternalServerError())
+          }
+
+          resolve(editedMsg)
+        }
+      )
+    } catch (error) {
+      if (error instanceof customError.NotFoundError) {
+        return reject(new customError.NotFoundError())
+      }
+      if (error instanceof customError.ForbiddenError) {
+        return reject(new customError.ForbiddenError())
+      }
+    }
+  })
+
+/**
  * @returns {Array} promise array with 
  * objects with properties:
  * _id, title, message, userID, username
@@ -57,5 +105,6 @@ const getAllMessages = () =>
 module.exports = {
   storeMessage,
   getMessageData,
-  getAllMessages
+  getAllMessages,
+  editMessage
 }
