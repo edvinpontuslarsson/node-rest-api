@@ -36,8 +36,14 @@ const storeMessage = rawRequest =>
  */
 const getMessageData = rawMessageID => {
   const messageID = sanitize(rawMessageID)
-
-  Message.findById // TODO: complete this
+  return new Promise((resolve, reject) => {
+    Message.findById(messageID, (err, msg) => {
+      if (err) {
+        return reject(new customError.NotFoundError())
+      }
+      resolve(msg)
+    })
+  })
 }
 
 /**

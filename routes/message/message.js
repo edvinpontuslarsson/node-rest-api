@@ -9,8 +9,19 @@ const customError = require('../../models/customError')
 
 router.route('/message/:id')
   .get(async (req, res) => {
-    const messageData =
-            await messageDAL.getMessageData(req.params.id)
+    try {
+      const messageData = await messageDAL.getMessageData(
+        req.params.id
+      )
+      const view = messageView.getMessageView(
+        req.headers.host, messageData
+      )
+      res.json(view)
+    } catch (error) {
+      if (error instanceof customError.NotFoundError) {
+        res.sendStatus(404)
+      }
+    }
   })
 
   .patch(async (req, res) => {
@@ -20,3 +31,5 @@ router.route('/message/:id')
   .delete(async (req, res) => {
 
   })
+
+module.exports = router

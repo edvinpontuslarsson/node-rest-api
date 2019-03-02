@@ -21,6 +21,7 @@ app.use('/', require('./routes/user/signIn'))
 // message routes
 app.use('/', require('./routes/message/createMessage'))
 app.use('/', require('./routes/message/listMessages'))
+app.use('/', require('./routes/message/message'))
 // webhook routes
 app.use('/', require('./routes/webhook/registerWebhook'))
 

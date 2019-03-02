@@ -2,6 +2,8 @@
 
 class InternalServerError extends Error {}
 
+class NotFoundError extends Error {}
+
 class UsernameTooShortError extends Error {}
 
 class UsernameTooLongError extends Error {}
@@ -18,6 +20,7 @@ class ForbiddenError extends Error {}
 
 module.exports = {
   InternalServerError,
+  NotFoundError,
   PasswordsDoNotMatchError,
   UsernameTooShortError,
   UsernameTooLongError,
