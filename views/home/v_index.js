@@ -9,6 +9,13 @@ const getIndexView = hostname => {
   return {
     info: 'Welcome to the MessageBoard API!',
     links: [
+      {
+        rel: `${listMessages}`,
+        href: `${hostname}/${listMessages}`,
+        actions: [
+          { method: 'GET' }
+        ]
+      },
       // objects with links & instructions
       signUpView.getSignUpView(hostname),
       signInView.getSignInView(hostname),
@@ -17,5 +24,7 @@ const getIndexView = hostname => {
     ]
   }
 }
+
+const listMessages = 'list-messages'
 
 module.exports = { getIndexView }

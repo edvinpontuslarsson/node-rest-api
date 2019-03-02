@@ -20,6 +20,7 @@ app.use('/', require('./routes/user/signUp'))
 app.use('/', require('./routes/user/signIn'))
 // message routes
 app.use('/', require('./routes/message/createMessage'))
+app.use('/', require('./routes/message/listMessages'))
 // webhook routes
 app.use('/', require('./routes/webhook/registerWebhook'))
 

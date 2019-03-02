@@ -40,7 +40,16 @@ const getMessageData = rawMessageID => {
   Message.findById // TODO: complete this
 }
 
+/**
+ * @returns {Array} promise array with 
+ * objects with properties:
+ * _id, title, message, userID, username
+ */
+const getAllMessages = () => 
+  Message.find({}).sort({ createdAt: 'descending' }).exec()
+
 module.exports = {
   storeMessage,
-  getMessageData
+  getMessageData,
+  getAllMessages
 }

@@ -8,8 +8,9 @@ const notification = require('../../notifications/notification')
 
 router.route('/create-message')
   .get((req, res) => {
-    const view =
-            createMessageView.getCreateMessageView(req.headers.host)
+    const view = createMessageView.getCreateMessageView(
+      req.headers.host
+    )
     res.status(200)
     res.json(view)
   })
@@ -22,6 +23,9 @@ router.route('/create-message')
         req.headers.host, message
       )
 
+      /**
+       * Webhook notification with info about the new message
+       */
       notification.notifyNewMessage(message)
 
       res.status(201)

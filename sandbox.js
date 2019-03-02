@@ -1,10 +1,22 @@
-const customError = require('./models/customError')
-
-try {
-  throw new customError.ForbiddenError()
-} catch (error) {
-  // console.log(error)
-  if (error instanceof customError.ForbiddenError) {
-    console.log('mkay')
+const originals = [
+  {
+    public1: 'Hello',
+    secret: 'Oh no!',
+    public2: 'Good bye' 
+  },
+  {
+    public1: 'Hello',
+    secret: 'Oh no!',
+    public2: 'Good bye' 
   }
-}
+]
+
+
+const cleans = []
+
+originals.forEach(obj => {
+  cleans.push(obj.public1)
+  cleans.push(obj.public2)
+})
+
+console.log(cleans)
