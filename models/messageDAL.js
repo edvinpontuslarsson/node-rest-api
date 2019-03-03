@@ -132,11 +132,11 @@ const deleteMessage = rawRequest =>
   })
 
 /**
- * @returns {Array} promise array with 
+ * @returns {Array} promise array with
  * objects with properties:
  * _id, title, message, userID, username
  */
-const getAllMessages = () => 
+const getAllMessages = () =>
   Message.find({}).sort({ createdAt: 'descending' }).exec()
 
 module.exports = {

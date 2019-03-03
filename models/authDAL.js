@@ -14,29 +14,52 @@ const authUser = (rawUsername, rawPassword) =>
     const username = sanitize(rawUsername)
     const password = sanitize(rawPassword)
 
-    User.findOne({ username }, (err, user) => {
-      if (err) { return reject(new customError.InternalServerError()) }
-      if (!user) {
+    if (!username || !password) {
+      return reject(new customError.WrongUsernameOrPasswordError())
+    }
+
+    try {
+      User.findOne({ username }, (err, user) => {
+        if (err) { return reject(new customError.InternalServerError()) }
+        if (!user) {
+          return reject(new customError.WrongUsernameOrPasswordError())
+        }
+        try {
+          user.validatePassword(password, (err, isCorrect) => {
+            if (err) { return reject(new customError.InternalServerError()) }
+            if (!isCorrect) {
+              return reject(new customError.WrongUsernameOrPasswordError())
+            }
+
+            const payload = {
+              id: user._id,
+              username: user.username
+            }
+            const token = jwt.sign(
+              payload,
+              process.env.JWT_SECRET,
+              { expiresIn: '10h' }
+            )
+
+            resolve(token)
+          })
+        } catch (error) {
+          if (error instanceof customError.InternalServerError) {
+            return reject(new customError.InternalServerError())
+          }
+          if (error instanceof customError.WrongUsernameOrPasswordError) {
+            return reject(new customError.WrongUsernameOrPasswordError())
+          }
+        }
+      })
+    } catch (error) {
+      if (error instanceof customError.InternalServerError) {
+        return reject(new customError.InternalServerError())
+      }
+      if (error instanceof customError.WrongUsernameOrPasswordError) {
         return reject(new customError.WrongUsernameOrPasswordError())
       }
-
-      user.validatePassword(password, (err, isCorrect) => {
-        if (err) { return reject(new customError.InternalServerError()) }
-        if (!isCorrect) { return reject(new customError.WrongUsernameOrPasswordError()) }
-
-        const payload = {
-          id: user._id,
-          username: user.username
-        }
-        const token = jwt.sign(
-          payload,
-          process.env.JWT_SECRET,
-          { expiresIn: '10h' }
-        )
-
-        resolve(token)
-      })
-    })
+    }
   })
 
 /**

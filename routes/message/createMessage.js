@@ -3,7 +3,6 @@
 const router = require('express').Router()
 const createMessageView = require('../../views/message/v_createMessage')
 const messageDAL = require('../../models/messageDAL')
-const customError = require('../../models/customError')
 const notification = require('../../notifications/notification')
 
 router.route('/create-message')
@@ -30,9 +29,10 @@ router.route('/create-message')
 
       res.status(201)
       res.json(view)
-    } catch (err) {
-      if (err instanceof customError.InternalServerError) { res.sendStatus(500) }
-      if (err instanceof customError.ForbiddenError) { res.sendStatus(403) }
+    } catch (error) {
+      const utils = require('../../utils/utils')
+      const statusCode = utils.getHttpErrorCode(error)
+      res.sendStatus(statusCode)
     }
   })
 

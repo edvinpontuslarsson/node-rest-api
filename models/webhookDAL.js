@@ -66,7 +66,7 @@ const editWebhook = rawRequest =>
 
       // rejects error if auth is incorrect
       const webhookData = await getWebhookData(rawRequest)
-      
+
       // present data if undefined in req
       const newData = {
         webhook_url: req.body.webhook_url || webhookData.webhook_url
@@ -80,7 +80,7 @@ const editWebhook = rawRequest =>
           if (err) return reject(new customError.InternalServerError())
           resolve(editedWebhook)
         }
-      )      
+      )
     } catch (error) {
       if (error instanceof customError.NotFoundError) {
         return reject(new customError.NotFoundError())
@@ -140,9 +140,9 @@ const getWebhookData = rawRequest =>
         resolve(hook)
       })
     } catch (error) {
-        if (error instanceof customError.ForbiddenError) {
-          return reject(new customError.ForbiddenError())
-        }
+      if (error instanceof customError.ForbiddenError) {
+        return reject(new customError.ForbiddenError())
+      }
     }
   })
 

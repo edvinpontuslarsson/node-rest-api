@@ -12,17 +12,17 @@ const getSignUpView = hostname => {
         method: post,
         fields: [
           {
-            name: username, 
-            type: string, 
+            name: username,
+            type: string,
             format: '3-30 characters long'
           },
           {
-            name: password, 
+            name: password,
             type: string,
             format: 'at least 5 characters long'
           },
           {
-            name: repeat_password, 
+            name: repeat_password,
             type: string,
             format: 'Identical to password'
           }

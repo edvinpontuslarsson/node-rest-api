@@ -32,23 +32,19 @@ router.route('/sign-up')
     } catch (err) {
       const view = signUpView.getSignUpView(req.headers.host)
 
-      if (err instanceof customError.InternalServerError) {
-        return res.sendStatus(500)
-      }
       if (err instanceof customError.UsernameTooShortError) {
         view.info = 'Error! Username needs to be > 3 characters'
-      }
-      if (err instanceof customError.UsernameTooLongError) {
+      } else if (err instanceof customError.UsernameTooLongError) {
         view.info = 'Error! Username needs to be < 30 characters'
-      }
-      if (err instanceof customError.PasswordTooShortError) {
+      } else if (err instanceof customError.PasswordTooShortError) {
         view.info = 'Error! Password needs to be > 5 characters'
-      }
-      if (err instanceof customError.PasswordsDoNotMatchError) {
+      } else if (err instanceof customError.PasswordsDoNotMatchError) {
         view.info = 'Error! Passwords do not match'
-      }
-      if (err instanceof customError.OccupiedUsernameError) {
+      } else if (err instanceof customError.OccupiedUsernameError) {
         view.info = 'Error! Username is occupied, please try with a diffent username'
+      } else {
+        const internalServerError = 500
+        return res.sendStatus(internalServerError)
       }
 
       res.status(401)

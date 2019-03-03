@@ -3,7 +3,7 @@
 const router = require('express').Router()
 const registerWebhookView = require('../../views/webhook/v_registerWebhook')
 const webhookDAL = require('../../models/webhookDAL')
-const customError = require('../../models/customError')
+const utils = require('../../utils/utils')
 
 router.route('/register-webhook')
   .get((req, res) => {
@@ -24,9 +24,9 @@ router.route('/register-webhook')
 
       res.status(201)
       res.json(view)
-    } catch (err) {
-      if (err instanceof customError.InternalServerError) { res.sendStatus(500) }
-      if (err instanceof customError.ForbiddenError) { res.sendStatus(403) }
+    } catch (error) {
+      const statusCode = utils.getHttpErrorCode(error)
+      res.sendStatus(statusCode)
     }
   })
 

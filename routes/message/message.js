@@ -3,7 +3,7 @@
 const router = require('express').Router()
 const messageView = require('../../views/message/v_message')
 const messageDAL = require('../../models/messageDAL')
-const customError = require('../../models/customError')
+const utils = require('../../utils/utils')
 
 router.route('/message/:id')
   .get(async (req, res) => {
@@ -17,9 +17,8 @@ router.route('/message/:id')
       res.status(200)
       res.json(view)
     } catch (error) {
-      if (error instanceof customError.NotFoundError) {
-        res.sendStatus(404)
-      }
+      const statusCode = utils.getHttpErrorCode(error)
+      res.sendStatus(statusCode)
     }
   })
 
@@ -33,15 +32,8 @@ router.route('/message/:id')
       res.status(created)
       res.json(view)
     } catch (error) {
-      if (error instanceof customError.NotFoundError) {
-        res.sendStatus(404)
-      }
-      if (error instanceof customError.ForbiddenError) {
-        res.sendStatus(403)
-      }
-      if (error instanceof customError.InternalServerError) {
-        res.sendStatus(500)
-      }
+      const statusCode = utils.getHttpErrorCode(error)
+      res.sendStatus(statusCode)
     }
   })
 
@@ -51,15 +43,8 @@ router.route('/message/:id')
       const noContent = 204
       res.sendStatus(noContent)
     } catch (error) {
-      if (error instanceof customError.NotFoundError) {
-        res.sendStatus(404)
-      }
-      if (error instanceof customError.ForbiddenError) {
-        res.sendStatus(403)
-      }
-      if (error instanceof customError.InternalServerError) {
-        res.sendStatus(500)
-      }
+      const statusCode = utils.getHttpErrorCode(error)
+      res.sendStatus(statusCode)
     }
   })
 

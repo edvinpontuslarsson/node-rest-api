@@ -3,7 +3,7 @@
 const router = require('express').Router()
 const signInView = require('../../views/user/v_signIn')
 const authDAL = require('../../models/authDAL')
-const customError = require('../../models/customError')
+const utils = require('../../utils/utils')
 
 router.route('/sign-in')
   .get((req, res) => {
@@ -29,10 +29,9 @@ router.route('/sign-in')
 
       res.status(201)
       res.json(view)
-    } catch (err) {
-      console.log(err)
-      if (err instanceof customError.InternalServerError) { res.sendStatus(500) }
-      if (err instanceof customError.WrongUsernameOrPasswordError) { res.sendStatus(401) }
+    } catch (error) {
+      const statusCode = utils.getHttpErrorCode(error)
+      res.sendStatus(statusCode)
     }
   })
 
