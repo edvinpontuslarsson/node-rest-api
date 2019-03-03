@@ -132,7 +132,8 @@ const getWebhookData = rawRequest =>
 
       Webhook.findById(req.params.id, async (err, hook) => {
         if (err) return reject(new customError.NotFoundError())
-
+        if (!hook) return reject(new customError.ForbiddenError())
+        
         const auth = await authDAL.getAuthData(req)
 
         if (hook.userID !== auth.id) {
