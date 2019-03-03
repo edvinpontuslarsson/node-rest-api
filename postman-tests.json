@@ -776,7 +776,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"title\": \"new title\",\n\t\"message\": \"new message\"\n}"
 						},
-						"url": "http://localhost:3000/message/5c79620b27f32f68ae809674"
+						"url": "http://localhost:3000/message/5c795f0a92ada363c42df5a7"
 					},
 					"response": []
 				}
@@ -865,7 +865,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"webhook_url\": \"new webhook\"\n}"
+							"raw": "{\n\t\"webhook_url\": \"not-valid-url\"\n}"
 						},
 						"url": "http://localhost:3000/register-webhook"
 					},
@@ -1038,11 +1038,11 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c188f94b-5e8b-4cbc-88df-e195f25ae1dc",
+								"id": "2e08c84f-3fc4-41c5-b05b-8721367f4bcb",
 								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Status code is 204\", function () {",
-									"    pm.response.to.have.status(204);",
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
 									"});"
 								]
 							}
@@ -1064,7 +1064,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": "http://localhost:3000/webhook/5c7ba6549310cc5b07494485"
+						"url": "http://localhost:3000/webhook/5c7c30ecdc9e7b3b84e44451"
 					},
 					"response": []
 				}

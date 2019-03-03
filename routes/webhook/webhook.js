@@ -38,7 +38,7 @@ router.route('/webhook/:id')
 
   .delete(async (req, res) => {
     try {
-      webhookDAL.deleteWebhook(req)
+      await webhookDAL.deleteWebhook(req)
       const noContent = 204
       res.sendStatus(noContent)
     } catch (error) {
