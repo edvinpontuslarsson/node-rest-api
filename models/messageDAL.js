@@ -6,7 +6,7 @@ const sanitize = require('mongo-sanitize')
 const customError = require('./customError')
 
 /**
- * @param {Object} rawRequest raw router request
+ * @param {Object} rawRequest - raw router request
  * @returns promise object with message data, properties:
  * _id, title, message, userID, username
  * @throws {customError.ForbiddenError} if auth is incorrect
@@ -49,7 +49,7 @@ const getMessageData = rawMessageID => {
 }
 
 /**
- * @param {Object} rawRequest raw router request
+ * @param {Object} rawRequest - raw router request
  * @returns {Object} edited message, as promise
  * @throws {customError.ForbiddenError} if auth is incorrect
  * @throws {customError.NotFoundError}
@@ -99,7 +99,7 @@ const editMessage = rawRequest =>
   })
 
 /**
- * @param {Object} rawRequest raw router request
+ * @param {Object} rawRequest - raw router request
  * @returns empty promise
  * @throws {customError.ForbiddenError} if auth is incorrect
  * @throws {customError.NotFoundError}
