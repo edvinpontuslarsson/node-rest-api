@@ -655,39 +655,6 @@
 						"url": "{{message_href}}"
 					},
 					"response": []
-				},
-				{
-					"name": "404 - message is deleted",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "fc48d293-a4dc-448d-8bf6-0fa8661323ee",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 404\", function () {",
-									"    pm.response.to.have.status(404);",
-									"});"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{access_token}}"
-							}
-						],
-						"body": {},
-						"url": "{{message_href}}"
-					},
-					"response": []
 				}
 			]
 		},
@@ -735,7 +702,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"test\",\n\t\"message\": \"testing\"\n}"
+							"raw": "{\n\t\"message\": \"no title\"\n}"
 						},
 						"url": "http://localhost:3000/create-message"
 					},
@@ -958,42 +925,6 @@
 					],
 					"request": {
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{access_token}}"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": "{{webhook_href}}"
-					},
-					"response": []
-				},
-				{
-					"name": "404 - Webhook is deleted",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "c0006feb-764c-428f-b5f0-df719deea26b",
-								"type": "text/javascript",
-								"exec": [
-									"pm.test(\"Status code is 404\", function () {",
-									"    pm.response.to.have.status(404);",
-									"});"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
 						"header": [
 							{
 								"key": "Content-Type",

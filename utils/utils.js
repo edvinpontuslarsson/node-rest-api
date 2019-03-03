@@ -3,6 +3,9 @@
 const customError = require('../models/customError')
 
 const getHttpErrorCode = error => {
+  if (error instanceof customError.BadRequestError) {
+    return 400
+  } 
   if (error instanceof customError.WrongUsernameOrPasswordError) {
     return 401
   }

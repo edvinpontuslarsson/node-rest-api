@@ -18,6 +18,8 @@ class OccupiedUsernameError extends Error {}
 
 class ForbiddenError extends Error {}
 
+class BadRequestError extends Error {}
+
 module.exports = {
   InternalServerError,
   NotFoundError,
@@ -27,5 +29,6 @@ module.exports = {
   PasswordTooShortError,
   WrongUsernameOrPasswordError,
   OccupiedUsernameError,
-  ForbiddenError
+  ForbiddenError,
+  BadRequestError
 }

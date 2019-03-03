@@ -15,6 +15,10 @@ const storeMessage = rawRequest =>
   new Promise(async (resolve, reject) => {
     try {
       const req = sanitize(rawRequest)
+      
+      if (!req.body.title || !req.body.message) {
+        return reject(new customError.BadRequestError())
+      }
 
       // rejects ForbiddenError if auth is incorrect
       const auth = await authDAL.getAuthData(req)
@@ -28,7 +32,7 @@ const storeMessage = rawRequest =>
       await message.save()
       resolve(message)
     } catch (error) {
-      return reject(new customError.ForbiddenError())
+      return reject(error)
     }
   })
 
@@ -36,17 +40,20 @@ const storeMessage = rawRequest =>
  * @returns promise with message data object
  * @throws {customError.NotFoundError}
  */
-const getMessageData = rawMessageID => {
-  const messageID = sanitize(rawMessageID)
-  return new Promise((resolve, reject) => {
-    Message.findById(messageID, (err, msg) => {
-      if (err) {
-        return reject(new customError.NotFoundError())
-      }
-      resolve(msg)
-    })
+const getMessageData = rawMessageID => 
+  new Promise((resolve, reject) => {
+    const messageID = sanitize(rawMessageID)
+    try {
+      Message.findById(messageID, (err, msg) => {
+        if (err) {
+          return reject(new customError.NotFoundError())
+        }
+        resolve(msg)
+      })
+    } catch (error) {
+      return reject(new customError.NotFoundError())
+    }
   })
-}
 
 /**
  * @param {Object} rawRequest - raw router request

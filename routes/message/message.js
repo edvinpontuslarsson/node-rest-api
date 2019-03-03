@@ -17,8 +17,8 @@ router.route('/message/:id')
       res.status(200)
       res.json(view)
     } catch (error) {
-      const statusCode = utils.getHttpErrorCode(error)
-      res.sendStatus(statusCode)
+      const notFound = 404
+      res.sendStatus(notFound)
     }
   })
 
