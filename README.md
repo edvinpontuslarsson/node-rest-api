@@ -5,14 +5,6 @@
 
 ## Report
 
-What could I have done better?
-
-Lots of similar functionality repeatedly, maybe could have reduced code by reusing general functions more
-
-Follow a more standard HATEOAS pattern
-
-Why not xml? JSON is easier to work with. Very common. 
-
 ### 1. Explain and defend your implementation of HATEOAS in your solution.
 
 As an example, here is the JSON response object of the index url:
@@ -176,15 +168,38 @@ I could have used express-sessions
 
 #### What pros/cons do this solution have?
 
-pros - quite simple, might be easier to do correctly since it's well integrated into express
+Pros: it would be quite simple and might be easier to do correctly since that is well integrated with the express framework.
 
-cons - performance suffers
+Cons: using server-side sessions is a worse option for good performance and also less convenient for API users.
 
 ### 4. Explain how your web hook works.
+
+When a new message is created, the function "notifyNewMessage" in notifications/notification.js is called with the message data object. 
+
+That function loops through the stored webhook urls and makes post requests to the valid urls with the new message data as JSON.
+
 ### 5. Since this is your first own web API there are probably things you would solve in an other way looking back at this assignment. 
+
+I would have tried to follow a more standardized pattern with the API responses. Such as Collection+JSON - Hypermedia Type. 
 
 ## Instructions
 
-git push heroku master
-
+#### Run tests
+```
 newman run postman-tests.json
+```
+
+#### Run locally
+```
+npm start
+```
+
+#### Run locally with nodemon
+```
+npm run dev
+```
+
+#### Push to heroku server
+```
+git push heroku master
+```
