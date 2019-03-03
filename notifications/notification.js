@@ -2,6 +2,7 @@
 
 const webhookDAL = require('../models/webhookDAL')
 const fetch = require('node-fetch')
+const validURL = require('valid-url')
 
 /**
  * @param {Object} messageData
@@ -18,14 +19,16 @@ const notifyNewMessage = async messageData => {
   }
 
   webhookObjects.forEach(async hookObj => {
-    await fetch(hookObj.webhook_url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(publicMessageInfo)
-    })
-      .catch(err => console.error(err))
+    if (validURL.isUri(hookObj.webhook_url)) {
+      await fetch(hookObj.webhook_url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(publicMessageInfo)
+      })
+        .catch(err => console.error(err))
+    }
   })
 }
 
