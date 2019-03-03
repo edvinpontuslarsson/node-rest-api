@@ -9,7 +9,6 @@ const getWebhookView = (hostname, webhookData) => {
     href: `${hostname}/${webhook}/${webhookData._id}`,
     webhhok_url: webhookData.webhhok_url,
     actions: [
-      { method: get },
       {
         method: patch,
         headers: [

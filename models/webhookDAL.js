@@ -31,19 +31,31 @@ const saveWebhook = rawRequest =>
   })
 
 /**
- * @returns promise with webhook data object
+ * Gets objects with data about webhooks created by user
+ * @param {Object} rawRequest raw router request
+ * @throws {customError.ForbiddenError} if auth is incorrect
+ * @throws {customError.NotFoundError}
  */
-const getWebhookData = rawWebhookID => {
-  const webhookID = sanitize(rawWebhookID)
+const getAllWebhooksByUser = rawRequest =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const req = sanitize(rawRequest)
 
-  // TODO: complete this
-}
+      const auth = await authDAL.getAuthData(req)
 
-const getAllWebhookObjectsPromise = () =>
-  Webhook.find({}).exec()
+      Webhook.find({ username: auth.username }, (err, hooks) => {
+        if (err) return reject(new customError.NotFoundError())
+        resolve(hooks)
+      })
+    } catch (error) {
+      return reject(new customError.ForbiddenError())
+    }
+  })
+
+const getAllWebhookObjectsPromise = () => Webhook.find({}).exec()
 
 module.exports = {
   saveWebhook,
-  getWebhookData,
+  getAllWebhooksByUser,
   getAllWebhookObjectsPromise
 }

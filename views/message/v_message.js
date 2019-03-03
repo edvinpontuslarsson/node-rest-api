@@ -10,6 +10,7 @@ const getMessageView = (hostname, messageData) => {
     title: messageData.title,
     message: messageData.message,
     username: messageData.username,
+    createdAt: messageData.createdAt,
     actions: [
       { method: get },
       {

@@ -24,6 +24,7 @@ app.use('/', require('./routes/message/listMessages'))
 app.use('/', require('./routes/message/message'))
 // webhook routes
 app.use('/', require('./routes/webhook/registerWebhook'))
+app.use('/', require('./routes/webhook/listWebhooks'))
 
 const port = process.env.PORT
 
