@@ -70,6 +70,7 @@ const editMessage = rawRequest =>
       const messageData = await getMessageData(
         req.params.id
       )
+      
       // rejects ForbiddenError if auth is incorrect
       const auth = await authDAL.getAuthData(req)
 
@@ -119,7 +120,8 @@ const deleteMessage = rawRequest =>
       const messageData = await getMessageData(
         req.params.id
       )
-      // rejects ForbiddenError if auth is incorrect
+
+
       const auth = await authDAL.getAuthData(req)
 
       if (messageData.userID !== auth.id) {
@@ -129,6 +131,7 @@ const deleteMessage = rawRequest =>
       await Message.findOneAndRemove({ _id: req.params.id })
       resolve()
     } catch (error) {
+      console.log(error)
       if (error instanceof customError.NotFoundError) {
         return reject(new customError.NotFoundError())
       }

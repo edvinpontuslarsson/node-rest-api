@@ -39,7 +39,7 @@ router.route('/message/:id')
 
   .delete(async (req, res) => {
     try {
-      messageDAL.deleteMessage(req)
+      await messageDAL.deleteMessage(req)
       const noContent = 204
       res.sendStatus(noContent)
     } catch (error) {
