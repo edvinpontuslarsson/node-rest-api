@@ -1,5 +1,7 @@
 git push heroku master
 
+newman run postman-tests.json
+
 What could have done better?
 
 Lots of similar functionality repeatedly, maybe could have reduced code by reusing general functions more

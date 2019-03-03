@@ -1,0 +1,1165 @@
+{
+	"info": {
+		"_postman_id": "9cbb0bc5-58ec-4002-bcf9-53dc68e90739",
+		"name": "1DV527-API-exam2",
+		"description": "Tests the message board API developed for exam 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tests without auth",
+			"description": "",
+			"item": [
+				{
+					"name": "index page",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c5d97cf-0fe3-4c72-b1e6-71fd35e73b3a",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "http://localhost:3000/"
+					},
+					"response": []
+				},
+				{
+					"name": "list messages",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c26caf4-98ab-454b-b044-b9f407cfeb1f",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": "http://localhost:3000/list-messages"
+					},
+					"response": []
+				},
+				{
+					"name": "Fail to list webhooks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0e3e3df8-20bb-411b-8ea1-dc5618d40672",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": "http://localhost:3000/list-webhooks"
+					},
+					"response": []
+				},
+				{
+					"name": "Fail to create message",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d7b2a49e-3973-4705-a3e8-e9a39db750d9",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "204ba671-8c32-4903-8676-225ae5e7f3c3",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"test\",\n\t\"message\": \"testing\"\n}"
+						},
+						"url": "http://localhost:3000/create-message"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Registration tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Failed Registration - no username",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "71dadd31-fb39-4e08-b07b-a475f2ce8b32",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "3ad0b956-1767-4ee1-b0ef-7f984a8b9512",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"Password\",\n    \"repeat_password\": \"Password\"\n}"
+						},
+						"url": "http://localhost:3000/sign-up"
+					},
+					"response": []
+				},
+				{
+					"name": "Failed Registration -no password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "186e8491-6bf0-44eb-898a-07a2098ebf99",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1480d060-4136-4c7b-b9f3-2104bfe0aa9c",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testing\",\n    \"repeat_password\": \"Password\"\n}"
+						},
+						"url": "http://localhost:3000/sign-up"
+					},
+					"response": []
+				},
+				{
+					"name": "Failed Registration - occupied username",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "77b1cc5f-ffac-40d6-96ff-3082c1adfb3a",
+								"type": "text/javascript",
+								"exec": [
+									"",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1cae7e7a-6e86-490f-9126-5ceb5a535ae9",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"user051511015717\",\n\t\"password\": \"Password\",\n    \"repeat_password\": \"Password\"\n}"
+						},
+						"url": "http://localhost:3000/sign-up"
+					},
+					"response": []
+				},
+				{
+					"name": "Successful Registration",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d7768acb-6dff-4444-94b9-8924571500aa",
+								"type": "text/javascript",
+								"exec": [
+									"pm.globals.set(\"username\", getRandomUsername());",
+									"",
+									"function getRandomUsername () {",
+									"    let username = 'user';",
+									"    ",
+									"    for (let i = 0; i < 8; i += 1) {",
+									"        username += Math.floor((Math.random() * 20));",
+									"    }",
+									"    ",
+									"    return username;",
+									"}",
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "382e9cf0-93f4-4e97-b423-e03357f6c9ee",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"{{username}}\",\n\t\"password\": \"Password\",\n    \"repeat_password\": \"Password\"\n}"
+						},
+						"url": "http://localhost:3000/sign-up"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Failed Auth - wrong username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f92c75b-3351-4f0f-8fa5-0516231cb3b3",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"unknown_user\",\n\t\"password\": \"Password\"\n}"
+						},
+						"url": "http://localhost:3000/sign-in"
+					},
+					"response": []
+				},
+				{
+					"name": "Failed Auth - no username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1f92c75b-3351-4f0f-8fa5-0516231cb3b3",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"Password\"\n}"
+						},
+						"url": "http://localhost:3000/sign-in"
+					},
+					"response": []
+				},
+				{
+					"name": "Failed Auth - wrong password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c4f138d0-3b0f-41d7-956b-b491654d6a0f",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"{{username}}\",\n\t\"password\": \"wrong_password\"\n}"
+						},
+						"url": "http://localhost:3000/sign-in"
+					},
+					"response": []
+				},
+				{
+					"name": "Failed Auth - no password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c4f138d0-3b0f-41d7-956b-b491654d6a0f",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"{{username}}\"\n}"
+						},
+						"url": "http://localhost:3000/sign-in"
+					},
+					"response": []
+				},
+				{
+					"name": "Successful Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f266ef1a-25ea-494d-a959-92df08ef61b1",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"let jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Contains access_token\", function () {",
+									"    pm.expect(jsonData.access_token).to.not.eql(undefined);",
+									"});",
+									"",
+									"pm.globals.set(\"access_token\", jsonData.access_token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"{{username}}\",\n\t\"password\": \"Password\"\n}"
+						},
+						"url": "http://localhost:3000/sign-in"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Success message tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Successfully create message",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d7b2a49e-3973-4705-a3e8-e9a39db750d9",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "26e2edd6-f119-4fea-a852-4473bed79be5",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"let jsonData = pm.response.json();",
+									"let messageHref = ",
+									"    jsonData.links[0].href;",
+									"",
+									"pm.globals.set(\"message_href\", messageHref);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"test\",\n\t\"message\": \"testing\"\n}"
+						},
+						"url": "http://localhost:3000/create-message"
+					},
+					"response": []
+				},
+				{
+					"name": "Successfully Edit message",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9a57f599-7afa-427b-82f4-6dce0b7400f6",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"new title\",\n\t\"message\": \"new message\"\n}"
+						},
+						"url": "{{message_href}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Successful PATCH of only title",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fda5a91-b1d0-48f7-b676-3c89d63f273c",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"just edit title\"\n}"
+						},
+						"url": "{{message_href}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete message",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "08d1a413-1c78-4404-9529-cd4863195b49",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {},
+						"url": "{{message_href}}"
+					},
+					"response": []
+				},
+				{
+					"name": "404 - message is deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc48d293-a4dc-448d-8bf6-0fa8661323ee",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {},
+						"url": "{{message_href}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fail message tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Fail to create message without title",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "d7b2a49e-3973-4705-a3e8-e9a39db750d9",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "6f963c31-d5ba-4193-8183-a8371fce3784",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 400, bad request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"test\",\n\t\"message\": \"testing\"\n}"
+						},
+						"url": "http://localhost:3000/create-message"
+					},
+					"response": []
+				},
+				{
+					"name": "Failed forbidden PATCH",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a580c67a-9f4c-4551-b208-fd791113040c",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"new title\",\n\t\"message\": \"new message\"\n}"
+						},
+						"url": "http://localhost:3000/message/5c79620b27f32f68ae809674"
+					},
+					"response": []
+				},
+				{
+					"name": "Failed forbidden DELETE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a580c67a-9f4c-4551-b208-fd791113040c",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"new title\",\n\t\"message\": \"new message\"\n}"
+						},
+						"url": "http://localhost:3000/message/5c79620b27f32f68ae809674"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Success webhook tests",
+			"description": "",
+			"item": [
+				{
+					"name": "List webhooks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "543ea6a0-6d26-4a28-93f0-fb7f4ebea56e",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {},
+						"url": "http://localhost:3000/list-webhooks"
+					},
+					"response": []
+				},
+				{
+					"name": "register webhook",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f60e814d-d7c3-46ec-a2dc-6df55c82873c",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "584befc4-986c-4e3a-94c1-5607e3608e60",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"let jsonData = pm.response.json();",
+									"let webhookHref = ",
+									"    jsonData.links[0].href;",
+									"",
+									"pm.globals.set(\"webhook_href\", webhookHref);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"webhook_url\": \"new webhook\"\n}"
+						},
+						"url": "http://localhost:3000/register-webhook"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit webhook",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8682d74a-f310-4c1f-a58c-4741fb7892d3",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"webhook_url\": \"editedWebhook\"\n}"
+						},
+						"url": "{{webhook_href}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete webhook",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c188f94b-5e8b-4cbc-88df-e195f25ae1dc",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{webhook_href}}"
+					},
+					"response": []
+				},
+				{
+					"name": "404 - Webhook is deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c0006feb-764c-428f-b5f0-df719deea26b",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{webhook_href}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fail webhook tests",
+			"description": "",
+			"item": [
+				{
+					"name": "Fail: register webhook without url",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f60e814d-d7c3-46ec-a2dc-6df55c82873c",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "4fab834f-bfc6-4cef-b136-56bf32015b6c",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n}"
+						},
+						"url": "http://localhost:3000/register-webhook"
+					},
+					"response": []
+				},
+				{
+					"name": "Failed forbidden edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "895d3c03-799e-4e99-9372-15a05bcbd3ee",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"webhook_url\": \"editedWebhook\"\n}"
+						},
+						"url": "http://localhost:3000/webhook/5c7ba6549310cc5b07494485"
+					},
+					"response": []
+				},
+				{
+					"name": "Failed forbidden delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c188f94b-5e8b-4cbc-88df-e195f25ae1dc",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "http://localhost:3000/webhook/5c7ba6549310cc5b07494485"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "90db06f6-9235-4276-9736-10b84ac89416",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "06a6d0cd-af7f-4159-ba51-4acb0cacde5e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

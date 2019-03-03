@@ -13,27 +13,14 @@ const sanitize = require('mongo-sanitize')
  * @returns {Promise} username
  */
 const storeNewUser = (rawUsername, rawPassword, rawRepeatPass) =>
-  new Promise(async resolve => {
+  new Promise(async (resolve, reject) => {
     const username = sanitize(rawUsername)
     const password = sanitize(rawPassword)
     const repeatpass = sanitize(rawRepeatPass)
 
-    // throws error if not OK
-    await validateRegistration(username, password, repeatpass)
-
-    const user = new User({username, password})
-    await user.save()
-    resolve(username)
-  })
-
-/**
- * @returns {Promise} empty resolve promise
- */
-const validateRegistration = (username, password, repeatpass) =>
-  new Promise(async (resolve, reject) => {
-    if (username.length < 3) { return reject(new customError.UsernameTooShortError()) }
+    if (!username || username.length < 3) { return reject(new customError.UsernameTooShortError()) }
     if (username.length > 30) { return reject(new customError.UsernameTooLongError()) }
-    if (password.length < 5) { return reject(new customError.PasswordTooShortError()) }
+    if (!password || password.length < 5) { return reject(new customError.PasswordTooShortError()) }
     if (password !== repeatpass) { return reject(new customError.PasswordsDoNotMatchError()) }
 
     const isUsernameTaken = await User.findOne(
@@ -43,7 +30,9 @@ const validateRegistration = (username, password, repeatpass) =>
 
     if (isUsernameTaken !== null) { return reject(new customError.OccupiedUsernameError()) }
 
-    resolve()
+    const user = new User({username, password})
+    await user.save()
+    resolve(username)
   })
 
 module.exports = { storeNewUser }
