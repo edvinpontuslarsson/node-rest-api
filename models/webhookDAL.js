@@ -16,6 +16,8 @@ const saveWebhook = rawRequest =>
     try {
       const req = sanitize(rawRequest)
 
+      if (!req.body.webhook_url) return reject(new customError.BadRequestError())
+
       const auth = await authDAL.getAuthData(req)
 
       const webhook = new Webhook({
