@@ -9,7 +9,16 @@ const getWebhookView = (hostname, webhookData) => {
     href: `${hostname}/${webhook}/${webhookData._id}`,
     webhhok_url: webhookData.webhook_url,
     actions: [
-      { get },
+      {
+        method: get,
+        headers: [
+          {
+            name: 'Authorization',
+            type: string,
+            format: 'Bearer <access_token>'
+          }
+        ]
+      },
       {
         method: patch,
         headers: [

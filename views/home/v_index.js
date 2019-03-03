@@ -20,11 +20,29 @@ const getIndexView = hostname => {
       signUpView.getSignUpView(hostname),
       signInView.getSignInView(hostname),
       createMessageView.getCreateMessageView(hostname),
-      registerWebhooksView.getRegisterWebhookView(hostname)
+      registerWebhooksView.getRegisterWebhookView(hostname),
+      {
+        rel: `${listWebhooks}`,
+        href: `${hostname}/${listWebhooks}`,
+        actions: [
+          {
+            method: 'GET',
+            headers: [
+              {
+                name: 'Authorization',
+                type: string,
+                format: 'Bearer <access_token>'
+              }
+            ]
+          }
+        ]
+      }
     ]
   }
 }
 
 const listMessages = 'list-messages'
+const listWebhooks = 'list-webhooks'
+const string = 'string'
 
 module.exports = { getIndexView }
