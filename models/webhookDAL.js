@@ -93,6 +93,32 @@ const editWebhook = rawRequest =>
 
 /**
  * @param {Object} rawRequest - raw router request
+ * @returns empty promise
+ * @throws {customError.ForbiddenError} if auth is incorrect
+ * @throws {customError.NotFoundError}
+ */
+const deleteWebhook = rawRequest =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const req = sanitize(rawRequest)
+
+      // rejects error if auth is incorrect
+      await getWebhookData(rawRequest)
+
+      await Webhook.findOneAndRemove({ _id: req.params.id })
+      resolve()
+    } catch (error) {
+      if (error instanceof customError.NotFoundError) {
+        return reject(new customError.NotFoundError())
+      }
+      if (error instanceof customError.ForbiddenError) {
+        return reject(new customError.ForbiddenError())
+      }
+    }
+  })
+
+/**
+ * @param {Object} rawRequest - raw router request
  * @returns {Object} webhook data, as promise
  * @throws {customError.ForbiddenError} if auth is incorrect
  * @throws {customError.NotFoundError}
@@ -127,5 +153,6 @@ module.exports = {
   getWebhookData,
   getAllWebhooksByUser,
   getAllWebhookObjectsPromise,
-  editWebhook
+  editWebhook,
+  deleteWebhook
 }

@@ -50,4 +50,22 @@ router.route('/webhook/:id')
         }
     })
 
+    .delete(async (req, res) => {
+        try {
+            webhookDAL.deleteWebhook(req)
+            const noContent = 204
+            res.sendStatus(noContent)
+        } catch (error) {
+            if (error instanceof customError.NotFoundError) {
+                res.sendStatus(404)
+            }
+            if (error instanceof customError.ForbiddenError) {
+                res.sendStatus(403)
+            }
+            if (error instanceof customError.InternalServerError) {
+                res.sendStatus(500)
+            }
+        }
+    })
+
 module.exports = router
