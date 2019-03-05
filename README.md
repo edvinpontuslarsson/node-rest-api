@@ -1,5 +1,7 @@
 # Examination 2 - web API
 
+The API is publicly available at: https://el223na.herokuapp.com/
+
 * [Report](#report)
 * [Instructions](#instructions)
 
@@ -15,7 +17,7 @@ As an example, here is the JSON response object of the index url:
     "links": [
         {
             "rel": "list-messages",
-            "href": "localhost:3000/list-messages",
+            "href": "el223na.herokuapp.com/list-messages",
             "actions": [
                 {
                     "method": "GET"
@@ -24,7 +26,7 @@ As an example, here is the JSON response object of the index url:
         },
         {
             "rel": "sign-up",
-            "href": "localhost:3000/sign-up",
+            "href": "el223na.herokuapp.com/sign-up",
             "actions": [
                 {
                     "method": "GET"
@@ -53,7 +55,7 @@ As an example, here is the JSON response object of the index url:
         },
         {
             "rel": "sign_in",
-            "href": "localhost:3000/sign_in",
+            "href": "el223na.herokuapp.com/sign_in",
             "actions": [
                 {
                     "method": "GET"
@@ -75,7 +77,7 @@ As an example, here is the JSON response object of the index url:
         },
         {
             "rel": "create-message",
-            "href": "localhost:3000/create-message",
+            "href": "el223na.herokuapp.com/create-message",
             "actions": [
                 {
                     "method": "GET"
@@ -106,7 +108,7 @@ As an example, here is the JSON response object of the index url:
         },
         {
             "rel": "register-webhook",
-            "href": "localhost:3000/register-webhook",
+            "href": "el223na.herokuapp.com/register-webhook",
             "actions": [
                 {
                     "method": "GET"
@@ -132,7 +134,7 @@ As an example, here is the JSON response object of the index url:
         },
         {
             "rel": "list-webhooks",
-            "href": "localhost:3000/list-webhooks",
+            "href": "el223na.herokuapp.com/list-webhooks",
             "actions": [
                 {
                     "method": "GET",
