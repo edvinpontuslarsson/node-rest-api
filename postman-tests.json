@@ -30,7 +30,7 @@
 						"method": "GET",
 						"header": [],
 						"body": {},
-						"url": "https://el223na.herokuapp.com/"
+						"url": "http://localhost:3000/"
 					},
 					"response": []
 				},
@@ -54,7 +54,7 @@
 						"method": "GET",
 						"header": [],
 						"body": {},
-						"url": "https://el223na.herokuapp.com/list-messages"
+						"url": "http://localhost:3000/list-messages"
 					},
 					"response": []
 				},
@@ -83,7 +83,7 @@
 							}
 						],
 						"body": {},
-						"url": "https://el223na.herokuapp.com/list-webhooks"
+						"url": "http://localhost:3000/list-webhooks"
 					},
 					"response": []
 				},
@@ -125,7 +125,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"title\": \"test\",\n\t\"message\": \"testing\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/create-message"
+						"url": "http://localhost:3000/create-message"
 					},
 					"response": []
 				}
@@ -174,7 +174,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"password\": \"Password\",\n    \"repeat_password\": \"Password\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/sign-up"
+						"url": "http://localhost:3000/sign-up"
 					},
 					"response": []
 				},
@@ -217,7 +217,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"username\": \"testing\",\n    \"repeat_password\": \"Password\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/sign-up"
+						"url": "http://localhost:3000/sign-up"
 					},
 					"response": []
 				},
@@ -260,7 +260,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"username\": \"user051511015717\",\n\t\"password\": \"Password\",\n    \"repeat_password\": \"Password\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/sign-up"
+						"url": "http://localhost:3000/sign-up"
 					},
 					"response": []
 				},
@@ -313,7 +313,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"username\": \"{{username}}\",\n\t\"password\": \"Password\",\n    \"repeat_password\": \"Password\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/sign-up"
+						"url": "http://localhost:3000/sign-up"
 					},
 					"response": []
 				}
@@ -351,7 +351,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"username\": \"unknown_user\",\n\t\"password\": \"Password\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/sign-in"
+						"url": "http://localhost:3000/sign-in"
 					},
 					"response": []
 				},
@@ -383,7 +383,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"password\": \"Password\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/sign-in"
+						"url": "http://localhost:3000/sign-in"
 					},
 					"response": []
 				},
@@ -416,7 +416,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"username\": \"{{username}}\",\n\t\"password\": \"wrong_password\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/sign-in"
+						"url": "http://localhost:3000/sign-in"
 					},
 					"response": []
 				},
@@ -449,7 +449,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"username\": \"{{username}}\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/sign-in"
+						"url": "http://localhost:3000/sign-in"
 					},
 					"response": []
 				},
@@ -489,7 +489,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"username\": \"{{username}}\",\n\t\"password\": \"Password\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/sign-in"
+						"url": "http://localhost:3000/sign-in"
 					},
 					"response": []
 				}
@@ -547,7 +547,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"title\": \"test\",\n\t\"message\": \"testing\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/create-message"
+						"url": "http://localhost:3000/create-message"
 					},
 					"response": []
 				},
@@ -704,7 +704,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"message\": \"no title\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/create-message"
+						"url": "http://localhost:3000/create-message"
 					},
 					"response": []
 				},
@@ -740,7 +740,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"title\": \"new title\",\n\t\"message\": \"new message\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/message/5c79620b27f32f68ae809674"
+						"url": "http://localhost:3000/message/5c79620b27f32f68ae809674"
 					},
 					"response": []
 				},
@@ -776,7 +776,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"title\": \"new title\",\n\t\"message\": \"new message\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/message/5c795f0a92ada363c42df5a7"
+						"url": "http://localhost:3000/message/5c795f0a92ada363c42df5a7"
 					},
 					"response": []
 				}
@@ -815,7 +815,7 @@
 							}
 						],
 						"body": {},
-						"url": "https://el223na.herokuapp.com/list-webhooks"
+						"url": "http://localhost:3000/list-webhooks"
 					},
 					"response": []
 				},
@@ -867,7 +867,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"webhook_url\": \"not-valid-url\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/register-webhook"
+						"url": "http://localhost:3000/register-webhook"
 					},
 					"response": []
 				},
@@ -992,7 +992,7 @@
 							"mode": "raw",
 							"raw": "{\n}"
 						},
-						"url": "https://el223na.herokuapp.com/register-webhook"
+						"url": "http://localhost:3000/register-webhook"
 					},
 					"response": []
 				},
@@ -1028,7 +1028,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"webhook_url\": \"editedWebhook\"\n}"
 						},
-						"url": "https://el223na.herokuapp.com/webhook/5c7ba6549310cc5b07494485"
+						"url": "http://localhost:3000/webhook/5c7ba6549310cc5b07494485"
 					},
 					"response": []
 				},
@@ -1064,7 +1064,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": "https://el223na.herokuapp.com/webhook/5c7c30ecdc9e7b3b84e44451"
+						"url": "http://localhost:3000/webhook/5c7c30ecdc9e7b3b84e44451"
 					},
 					"response": []
 				}

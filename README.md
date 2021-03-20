@@ -1,9 +1,6 @@
 # Examination 2 - web API
 
-The API is publicly available at: https://el223na.herokuapp.com/
-
 * [Report](#report)
-* [Instructions](#instructions)
 
 ## Report
 
@@ -183,25 +180,3 @@ That function loops through the stored webhook urls and makes post requests to t
 ### 5. Since this is your first own web API there are probably things you would solve in an other way looking back at this assignment. 
 
 I would have tried to follow a more standardized pattern with the API responses. Such as Collection+JSON - Hypermedia Type. 
-
-## Instructions
-
-#### Run tests
-```
-newman run postman-tests.json
-```
-
-#### Run locally
-```
-npm start
-```
-
-#### Run locally with nodemon
-```
-npm run dev
-```
-
-#### Push to heroku server
-```
-git push heroku master
-```
